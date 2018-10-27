@@ -14,7 +14,7 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/quest',
+      path: '/quest/:id',
       name: 'quest',
       component: Quest,
     },
