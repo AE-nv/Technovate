@@ -1,18 +1,19 @@
 <template>
-    <v-toolbar app>
-        <v-toolbar-title class="headline font-weight-ligth has-text-weight-semibold is-uppercase">
-            <span>Karma Village</span>
-            <span>  -  </span>
-            <span class="font-weight-light">Technovate</span>
-        </v-toolbar-title>
+<v-navigation-drawer permanent>
+    <v-toolbar app full-width>
+        <v-toolbar-items style="padding: 0">
+            <v-btn flat><v-icon>arrow_back</v-icon></v-btn>
+            <v-btn flat>Complete Quest</v-btn>
+        </v-toolbar-items>
     </v-toolbar>
+</v-navigation-drawer>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
 
     @Component({})
-    export default class HeaderComponent extends Vue {
+    export default class Navigation extends Vue {
     }
 </script>
 
