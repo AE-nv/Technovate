@@ -7,7 +7,7 @@
 
         <v-list-tile-avatar>
             <v-img
-                    :src="require(`@/assets/red-chair.jpeg`)"
+                    :src="getImage()"
                     class="my-3"
                     contain
                     height="200"
@@ -30,6 +30,10 @@
     @Component({})
     export default class QuestTileComponent extends Vue {
         @Prop() public quest!: IQuest;
+
+        getImage() {
+            return require('@/assets/' + this.quest.image);
+        }
     }
 </script>
 <style>
