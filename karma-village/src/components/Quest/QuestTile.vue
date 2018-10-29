@@ -31,7 +31,7 @@
     export default class QuestTileComponent extends Vue {
         @Prop() public quest!: IQuest;
 
-        getImage() {
+        public getImage() {
             return require('@/assets/' + this.quest.image);
         }
     }

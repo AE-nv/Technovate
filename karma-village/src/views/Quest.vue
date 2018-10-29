@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <navigation-component></navigation-component>
     <v-layout
       text-xs-center
       wrap
@@ -24,13 +25,13 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
 
-@Component({})
-export default class QuestComponent extends Vue {
-
-}
+@Component({
+  components: { NavigationComponent },
+})
+export default class QuestComponent extends Vue {}
 </script>
 
 <style>
-
 </style>

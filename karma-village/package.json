@@ -26,6 +26,7 @@
     "typescript": "^3.0.0",
     "vue-cli-plugin-vuetify": "^0.4.5",
     "vue-template-compiler": "^2.5.17",
-    "vuetify-loader": "^1.0.5"
+    "vuetify-loader": "^1.0.5",
+    "@/components": "latest"
   }
 }

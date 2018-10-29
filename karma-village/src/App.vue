@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <header-component></header-component>
-    <v-content>  
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/quest">Quest</router-link> |
-        <router-link to="/confirmation">Confirmation</router-link>
-      </div>
+    <v-content>
+      <!--<div id="nav">-->
+        <!--<router-link to="/">Home</router-link> |-->
+        <!--<router-link to="/quest">Quest</router-link> |-->
+        <!--<router-link to="/confirmation">Confirmation</router-link>-->
+      <!--</div>-->
       <router-view/>
     </v-content>
   </v-app>
