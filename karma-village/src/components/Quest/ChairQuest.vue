@@ -21,12 +21,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { IQuest } from "../../models/IQuest";
-import NavigationComponent from "@/components/Shared/Navigation.vue";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { IQuest } from '../../models/IQuest';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
 
 @Component({
-  components: { NavigationComponent }
+  components: { NavigationComponent },
 })
 export default class ChairQuest extends Vue {
   @Prop()
