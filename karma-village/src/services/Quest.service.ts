@@ -1,6 +1,7 @@
 import {IQuest} from '@/models/IQuest';
 
 class QuestService {
+
     private quests: IQuest[] = [
         {
             id: 1,

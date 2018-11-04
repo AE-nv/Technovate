@@ -1,16 +1,15 @@
 <template>
     <v-toolbar app full-width>
         <v-toolbar-items style="padding: 0; display: flex; width: 100%">
-            <v-btn flat @click="$router.go(-1)"><v-icon>arrow_back</v-icon></v-btn>
-            <v-btn flat>Complete Quest</v-btn>
+            <slot></slot>
         </v-toolbar-items>
     </v-toolbar>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+    import {Component, Vue} from "vue-property-decorator";
 
-@Component({})
+    @Component({})
 export default class Navigation extends Vue {}
 </script>
 

@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "jquery": "^3.3.1",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
@@ -26,7 +28,6 @@
     "typescript": "^3.0.0",
     "vue-cli-plugin-vuetify": "^0.4.5",
     "vue-template-compiler": "^2.5.17",
-    "vuetify-loader": "^1.0.5",
-    "@/components": "latest"
+    "vuetify-loader": "^1.0.5"
   }
 }
