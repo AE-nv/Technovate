@@ -88,33 +88,32 @@ export default class ChairQuest extends Vue {
     public files: File[] = [];
     private dominantColor: string;
     private uploading = false;
+    private succesfulUpload = false;
 
     public onFilesAdded(file: File[]) {
-        $('.file-uploading').hide();
-        $('.circle-loader').show();
+            this.uploading = true;
+            this.succesfulUpload = false;
 
-        this.files = file;
-        const file1 = file[0];
-        googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
+            this.files = file;
+            const file1 = file[0];
+            googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
             this.keyWords = response.responses[0].labelAnnotations
                 .map((labelAnnotation) => labelAnnotation.description);
 
             const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
             this.dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
             this.keyWords.push(this.dominantColor);
+
+            this.uploading = false;
             if (this.isQuestComplete) {
-                $('.circle-loader').toggleClass('load-complete');
-                $('.checkmark').toggle();
-                $('.file-uploading').hide();
-            } else {
-                $('.circle-loader').hide();
-                $('.file-uploading').show();
+                    this.succesfulUpload = true;
+                    $('.checkmark').toggle();
             }
         }).catch(reason => {
-            $('.circle-loader').hide();
-            $('.file-uploading').show();
-            console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
-            alert('An error occured while labeling the image through google vision api');
+                this.uploading = false;
+                this.succesfulUpload = false;
+                console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
+                alert('An error occured while labeling the image through google vision api');
         });
 
     }
