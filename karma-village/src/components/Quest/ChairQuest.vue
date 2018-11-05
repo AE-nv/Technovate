@@ -73,7 +73,7 @@
     import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
     import JQuery from 'jquery';
 
-const $ = JQuery;
+    const $ = JQuery;
 
     @Component({
         components: {DropZone, NavigationComponent, Location},

@@ -12,11 +12,9 @@
 
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
-import VueGoogleAutocomplete from 'vue-google-autocomplete';
 
 @Component({
     components: {
-        VueGoogleAutocomplete,
     },
 })
 export default class LocationComponent extends Vue {
