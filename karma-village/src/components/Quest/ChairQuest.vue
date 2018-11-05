@@ -29,13 +29,16 @@
                         </div>
                     </div>
                     <hr style="width: 100%;"/>
-                    <div class="circle-loader" style="justify-self: center; display: none;margin-top: 24px;margin-bottom: 12px;">
+                    <div class="circle-loader" style="justify-self: center; display: none;margin-top: 24px;margin-bottom: 12px;" v-show="uploading">
                         <div class="checkmark draw"></div>
                     </div>
-                    <div class="file-uploading" style="width: 95%;">
+                    <div class="circle-loader load-complete" style="justify-self: center; display: none;margin-top: 24px;margin-bottom: 12px;" v-show="succesfulUpload">
+                        <div class="checkmark draw"></div>
+                    </div>
+                    <div class="file-uploading" style="width: 95%;" v-show="!uploading && !succesfulUpload">
                         <h3 style="text-align: center;">Add a picture of the chair you can offer</h3>
                         <drop-zone :enabled="!uploading" v-on:filesAdded="onFilesAdded"></drop-zone>
-                        <div v-if="this.files">
+                        <div v-if="files">
                             <p v-for="file in files">
                                 {{file.name}}
                             </p>
@@ -48,12 +51,12 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
-    import {IQuest} from "../../models/IQuest";
-    import NavigationComponent from "@/components/Shared/Navigation.vue";
-    import DropZone from "@/components/Shared/DropZone.vue";
-    import {googleApiService, GoogleVisionResponse} from "@/services/GoogleApi.service";
-    import JQuery from "jquery";
+    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {IQuest} from '../../models/IQuest';
+    import NavigationComponent from '@/components/Shared/Navigation.vue';
+    import DropZone from '@/components/Shared/DropZone.vue';
+    import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
+    import JQuery from 'jquery';
 
     const $ = JQuery;
 
@@ -63,32 +66,34 @@
     export default class ChairQuest extends Vue {
 
         get getPlastic(): string {
-            return this.getColorKeywordPresent("plastic");
+            return this.getColorKeywordPresent('plastic');
         }
 
         get isColorRed() {
-            return this.getColorKeywordPresent("red");
+            return this.getColorKeywordPresent('red');
         }
 
         get isChair() {
-            return this.getColorKeywordPresent("chair");
+            return this.getColorKeywordPresent('chair');
         }
 
         get isQuestComplete(): boolean {
-            return this.isKeywordPresent("chair")
-                && this.isKeywordPresent("plastic")
-                && this.isKeywordPresent("red");
+            return this.isKeywordPresent('chair')
+                && this.isKeywordPresent('plastic')
+                && this.isKeywordPresent('red');
         }
 
         @Prop() public quest!: IQuest;
         public keyWords: string[] = [];
         public files: File[] = [];
         private dominantColor: string;
+
         private uploading = false;
+        private succesfulUpload = false;
 
         public onFilesAdded(file: File[]) {
-            $(".file-uploading").hide();
-            $(".circle-loader").show();
+            this.uploading = true;
+            this.succesfulUpload = false;
 
             this.files = file;
             const file1 = file[0];
@@ -97,33 +102,31 @@
                     .map((labelAnnotation) => labelAnnotation.description);
 
                 const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
-                this.dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? "red" : "doesntmatter";
+                this.dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
                 this.keyWords.push(this.dominantColor);
+
+                this.uploading = false;
                 if (this.isQuestComplete) {
-                    $(".circle-loader").toggleClass("load-complete");
-                    $(".checkmark").toggle();
-                    $(".file-uploading").hide();
-                } else {
-                    $(".circle-loader").hide();
-                    $(".file-uploading").show();
+                    this.succesfulUpload = true;
+                    $('.checkmark').toggle();
                 }
             }).catch(reason => {
-                $(".circle-loader").hide();
-                $(".file-uploading").show();
-                console.error("There was an error labeling the image through google api: " + reason.toLocaleString());
-                alert("An error occured while labeling the image through google vision api");
+                this.uploading = false;
+                this.succesfulUpload = false;
+                console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
+                alert('An error occured while labeling the image through google vision api');
             });
 
         }
 
         private getColorKeywordPresent(keyWord: string): string {
             if (this.isKeywordPresent(keyWord)) {
-                return "green";
+                return 'green';
             }
             if (this.files) {
-                return "red";
+                return 'red';
             }
-            return "black";
+            return 'black';
         }
 
         private isKeywordPresent(keyword: string): boolean {

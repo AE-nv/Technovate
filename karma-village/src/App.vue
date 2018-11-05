@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import HeaderComponent from "@/components/Shared/Header.vue";
+    import {Component, Vue} from 'vue-property-decorator';
+    import HeaderComponent from '@/components/Shared/Header.vue';
 
     @Component({
   components: {
