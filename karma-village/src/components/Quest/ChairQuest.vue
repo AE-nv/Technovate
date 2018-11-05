@@ -8,7 +8,6 @@
         </navigation-component>
 
         <div style="height: 100%">
-
             <v-container class="info">
                 <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-evenly; align-items: center">
 
@@ -51,19 +50,20 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {IQuest} from '../../models/IQuest';
-import NavigationComponent from '@/components/Shared/Navigation.vue';
-import DropZone from '@/components/Shared/DropZone.vue';
-import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
-import JQuery from 'jquery';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {IQuest} from '../../models/IQuest';
+    import NavigationComponent from '@/components/Shared/Navigation.vue';
+    import DropZone from '@/components/Shared/DropZone.vue';
+    import Location from '@/components/Shared/Location.vue';
+    import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
+    import JQuery from 'jquery';
 
 const $ = JQuery;
 
-@Component({
-    components: {DropZone, NavigationComponent},
-})
-export default class ChairQuest extends Vue {
+    @Component({
+        components: {DropZone, NavigationComponent, Location},
+    })
+    export default class ChairQuest extends Vue {
 
     get getPlastic(): string {
         return this.getColorKeywordPresent('plastic');
