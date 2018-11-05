@@ -7,7 +7,7 @@ class QuestService {
             id: 1,
             title: 'I am looking for a chair',
             description: 'I am going to move to Ghent and I am looking for a chair in the region of Ghent.',
-            image: 'red-chair.jpeg',
+            image: 'red-chair.png',
             link: 'chair',
         } as IQuest,
         {

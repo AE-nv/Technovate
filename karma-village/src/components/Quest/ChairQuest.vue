@@ -10,7 +10,7 @@
         <div style="height: 100%">
 
             <v-container class="info">
-                <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-between; align-items: center">
+                <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-evenly; align-items: center">
 
                     <div>
                         <h3 style="text-align: center;padding-bottom: 12px;">
@@ -51,94 +51,95 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {IQuest} from '../../models/IQuest';
-    import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import DropZone from '@/components/Shared/DropZone.vue';
-    import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
-    import JQuery from 'jquery';
+import {Component, Prop, Vue} from 'vue-property-decorator';
+import {IQuest} from '../../models/IQuest';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import DropZone from '@/components/Shared/DropZone.vue';
+import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
+import JQuery from 'jquery';
 
-    const $ = JQuery;
+const $ = JQuery;
 
-    @Component({
-        components: {DropZone, NavigationComponent},
-    })
-    export default class ChairQuest extends Vue {
+@Component({
+    components: {DropZone, NavigationComponent},
+})
+export default class ChairQuest extends Vue {
 
-        get getPlastic(): string {
-            return this.getColorKeywordPresent('plastic');
-        }
+    get getPlastic(): string {
+        return this.getColorKeywordPresent('plastic');
+    }
 
-        get isColorRed() {
-            return this.getColorKeywordPresent('red');
-        }
+    get isColorRed() {
+        return this.getColorKeywordPresent('red');
+    }
 
-        get isChair() {
-            return this.getColorKeywordPresent('chair');
-        }
+    get isChair() {
+        return this.getColorKeywordPresent('chair');
+    }
 
-        get isQuestComplete(): boolean {
-            return this.isKeywordPresent('chair')
-                && this.isKeywordPresent('plastic')
-                && this.isKeywordPresent('red');
-        }
+    get isQuestComplete(): boolean {
+        return this.isKeywordPresent('chair')
+            && this.isKeywordPresent('plastic')
+            && this.isKeywordPresent('red');
+    }
 
-        @Prop() public quest!: IQuest;
-        public keyWords: string[] = [];
-        public files: File[] = [];
-        private dominantColor: string;
+    @Prop() public quest!: IQuest;
+    public keyWords: string[] = [];
+    public files: File[] = [];
+    private dominantColor: string;
+    private uploading = false;
 
-        private uploading = false;
-        private succesfulUpload = false;
+    public onFilesAdded(file: File[]) {
+        $('.file-uploading').hide();
+        $('.circle-loader').show();
 
-        public onFilesAdded(file: File[]) {
-            this.uploading = true;
-            this.succesfulUpload = false;
+        this.files = file;
+        const file1 = file[0];
+        googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
+            this.keyWords = response.responses[0].labelAnnotations
+                .map((labelAnnotation) => labelAnnotation.description);
 
-            this.files = file;
-            const file1 = file[0];
-            googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
-                this.keyWords = response.responses[0].labelAnnotations
-                    .map((labelAnnotation) => labelAnnotation.description);
-
-                const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
-                this.dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
-                this.keyWords.push(this.dominantColor);
-
-                this.uploading = false;
-                if (this.isQuestComplete) {
-                    this.succesfulUpload = true;
-                    $('.checkmark').toggle();
-                }
-            }).catch(reason => {
-                this.uploading = false;
-                this.succesfulUpload = false;
-                console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
-                alert('An error occured while labeling the image through google vision api');
-            });
-
-        }
-
-        private getColorKeywordPresent(keyWord: string): string {
-            if (this.isKeywordPresent(keyWord)) {
-                return 'green';
+            const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
+            this.dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
+            this.keyWords.push(this.dominantColor);
+            if (this.isQuestComplete) {
+                $('.circle-loader').toggleClass('load-complete');
+                $('.checkmark').toggle();
+                $('.file-uploading').hide();
+            } else {
+                $('.circle-loader').hide();
+                $('.file-uploading').show();
             }
-            if (this.files) {
-                return 'red';
-            }
-            return 'black';
-        }
-
-        private isKeywordPresent(keyword: string): boolean {
-            return this.files && this.keyWords && this.keyWords.indexOf(keyword) > -1;
-        }
-
+        }).catch(reason => {
+            $('.circle-loader').hide();
+            $('.file-uploading').show();
+            console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
+            alert('An error occured while labeling the image through google vision api');
+        });
 
     }
+
+    private getColorKeywordPresent(keyWord: string): string {
+        if (this.isKeywordPresent(keyWord)) {
+            return 'green';
+        }
+        if (this.files) {
+            return 'red';
+        }
+        return 'black';
+    }
+
+    private isKeywordPresent(keyword: string): boolean {
+        return this.files && this.keyWords && this.keyWords.indexOf(keyword) > -1;
+    }
+
+
+}
 </script>
 
 <style lang="scss">
     .info {
+        color: aliceblue;
         height: 100%;
         background-color: #8895dc !important;
         .half {

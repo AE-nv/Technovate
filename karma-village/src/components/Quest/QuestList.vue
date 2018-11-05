@@ -20,33 +20,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 import QuestTile from './QuestTile.vue';
-import { questService } from '@/services/Quest.service';
+import {questService} from '@/services/Quest.service';
 
-import { IQuest } from '@/models/IQuest';
+import {IQuest} from '@/models/IQuest';
 
 @Component({
   components: {
     QuestTile,
-  },
-  data() {
-    return {
-      items: [
-        {
-          src: require('@/assets/bike.jpeg'),
-        },
-        {
-          src: require('@/assets/bike.jpeg'),
-        },
-        {
-          src: require('@/assets/bike.jpeg'),
-        },
-        {
-          src: require('@/assets/bike.jpeg'),
-        },
-      ],
-    };
   },
 })
 export default class QuestList extends Vue {

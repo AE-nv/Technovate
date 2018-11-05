@@ -1,10 +1,12 @@
 <template>
   <v-container>
-    <navigation-component></navigation-component>
-    <v-layout
-      text-xs-center
-      wrap
-    >
+    <navigation-component>
+      <v-btn flat @click="$router.go(-1)">
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
+    </navigation-component>
+    <v-layout text-xs-center wrap>
       <v-flex xs12>
         <v-img
           :src="require('../assets/logo.svg')"
@@ -24,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 import NavigationComponent from '@/components/Shared/Navigation.vue';
 
 @Component({

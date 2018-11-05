@@ -20,13 +20,13 @@ export default new Router({
             component: ChairQuest,
         },
         {
-            path: '/quest/seat',
-            name: 'seat-quest',
+            path: '/quest/car',
+            name: 'car-quest',
             component: Quest,
         },
         {
-            path: '/quest/car',
-            name: 'car-quest',
+            path: '/quest/bike',
+            name: 'bike-quest',
             component: Quest,
         },
         {
