@@ -1,12 +1,12 @@
 <template>
     <div>
-    <vue-google-autocomplete
-        id="map"
-        classname="form-control"
-        placeholder="Start typing"
-        v-on:placechanged="getAddressData"
-    >
-    </vue-google-autocomplete>
+        <vuetify-google-autocomplete
+            id="map"
+            append-icon="search"
+            placeholder="Start typing"
+            v-on:placechanged="getAddressData"
+        >
+        </vuetify-google-autocomplete>
     </div>
 </template>
 
@@ -17,12 +17,12 @@ import VueGoogleAutocomplete from 'vue-google-autocomplete';
 @Component({
     components: {
         VueGoogleAutocomplete,
-    }
+    },
 })
 export default class LocationComponent extends Vue {
-    address: any;
+    private address: any;
 
-    getAddressData(addressData, placeResultData, id) {
+    private getAddressData(addressData, placeResultData, id) {
         this.address = addressData;
     }
 }
