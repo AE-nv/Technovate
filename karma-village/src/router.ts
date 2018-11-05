@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Quest from './views/Quest.vue';
+import BikeQuest from './components/Quest/BikeQuest.vue';
 import ChairQuest from './components/Quest/ChairQuest.vue';
 import Confirmation from './views/Confirmation.vue';
 
@@ -27,7 +28,7 @@ export default new Router({
         {
             path: '/quest/bike',
             name: 'bike-quest',
-            component: Quest,
+            component: BikeQuest,
         },
         {
             path: '/confirmation',
