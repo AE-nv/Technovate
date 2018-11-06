@@ -15,8 +15,8 @@
                         </h3>
                         <div class="info-container">
                             I'm looking for a bike with two wheels, pedals and a saddle. 
-                            Peferably not to far from Leuven. 
-                            Lease a comment if you have one available.
+                            Preferably not too far from Leuven.
+                            Leave a comment if you have one available.
                             <div class="half">
                                 <v-img :src="require('@/assets/bike.jpeg')"></v-img>
                             </div>
@@ -41,8 +41,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {IQuest} from '../../models/IQuest';
+import {Component, Vue} from 'vue-property-decorator';
 import NavigationComponent from '@/components/Shared/Navigation.vue';
 import JQuery from 'jquery';
 
