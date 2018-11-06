@@ -55,7 +55,14 @@ export default class BikeQuest extends Vue {
     public response: string = '';
 
     get isQuestComplete(): boolean {
-        return this.responses.length >= 3;
+        let completed = false;
+        for (const res of this.responses) {
+            if (res.indexOf('saddle') > -1 && res.indexOf('pedals') > -1 && res.indexOf('wheels') > -1) {
+                completed = true;
+            }
+        }
+        return completed;
+        // return this.responses.length >= 3;
     }
 
     public addResponse(): void {
