@@ -24,12 +24,16 @@
                     </div>
                     <div>
                         <div>
+                            <!--TODO 1: show the last response -->
+                            <!--TODO 2: show the list of all responses -->
                             <div style="padding-bottom:10px;" v-for="(res, index) in responses" :key="index">
                                 <v-card style="padding:10px;" color="primary">
                                     {{res}}
                                 </v-card>
                             </div>
                         </div>
+                        <!--TODO 1: create a text box + add the response to the list -->
+                        <!--TODO 2: add the textbox to a seperate component -->
                         <text-area-box @text="addResponse"></text-area-box>
                     </div>
             </v-container>
@@ -49,6 +53,7 @@ export default class BikeQuest extends Vue {
     public responses: string[] = [];
     public response: string = '';
 
+    //TODO: create a computed function which returns whether the quest is complete or not
     get isQuestComplete(): boolean {
         let completed = false;
         for (const res of this.responses) {
