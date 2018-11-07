@@ -17,7 +17,7 @@ export default class TextAreaBox extends Vue {
     private text: string = '';
 
     private addResponse() {
-        //TODO: emit the response
+        // TODO: emit the response
         this.$emit('text', this.text);
         this.text = '';
     }
