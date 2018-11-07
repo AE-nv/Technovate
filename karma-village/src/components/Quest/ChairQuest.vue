@@ -8,18 +8,6 @@
             <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
         </navigation-component>
         <v-card>
-            <v-card-title primary-title>
-                <div>
-                    <h3 class="headline mb-0">Location</h3>
-                    <div>Please give the location where we can find your quest</div>
-                </div>
-            </v-card-title>
-
-            <v-card-actions>
-                <location></location>
-            </v-card-actions>
-        </v-card>
-        <v-card>
         <div style="height: 100%">
             <v-container class="info">
                 <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-evenly; align-items: center">
@@ -69,14 +57,13 @@
     import {IQuest} from '../../models/IQuest';
     import NavigationComponent from '@/components/Shared/Navigation.vue';
     import DropZone from '@/components/Shared/DropZone.vue';
-    import Location from '@/components/Shared/Location.vue';
     import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
     import JQuery from 'jquery';
 
     const $ = JQuery;
 
     @Component({
-        components: {DropZone, NavigationComponent, Location},
+        components: {DropZone, NavigationComponent},
     })
     export default class ChairQuest extends Vue {
 

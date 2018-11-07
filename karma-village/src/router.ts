@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Quest from './views/Quest.vue';
 import BikeQuest from './components/Quest/BikeQuest.vue';
 import ChairQuest from './components/Quest/ChairQuest.vue';
+import CarQuest from './components/Quest/CarQuest.vue';
 import Confirmation from './views/Confirmation.vue';
 
 Vue.use(Router);
@@ -23,7 +24,7 @@ export default new Router({
         {
             path: '/quest/car',
             name: 'car-quest',
-            component: Quest,
+            component: CarQuest,
         },
         {
             path: '/quest/bike',

@@ -22,6 +22,7 @@ export default class LocationComponent extends Vue {
 
     private getAddressData(addressData, placeResultData, id) {
         this.address = addressData;
+        this.$emit('address', this.address);
     }
 }
 </script>
