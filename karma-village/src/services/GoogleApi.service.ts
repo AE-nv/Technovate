@@ -2,8 +2,12 @@ import axios, {AxiosResponse} from 'axios';
 
 class GoogleApiService {
 
+    private static GOOGLE_VISION_API_KEY = 'AIzaSyDlXHnneZE56Jm-PSqxlTO-zp7_1leXOyw';
+
+    private static googleVisionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${GoogleApiService.GOOGLE_VISION_API_KEY}`;
+
     private static doGoogleVisionCall(base64EncodedFile: string): Promise<GoogleVisionResponse> {
-        return axios.post<GoogleVisionResponse>('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDlXHnneZE56Jm-PSqxlTO-zp7_1leXOyw', {
+        const dataOptions = {
             requests: [
                 {
                     features: [
@@ -19,7 +23,15 @@ class GoogleApiService {
                     },
                 },
             ],
-        }).then((response: AxiosResponse<GoogleVisionResponse>) => {
+        };
+
+        /*
+           TODO: Do a call to the googleVisionUrl (make use of the dataOptions, which is the data contract Google expects in the POST request)
+           The api key is needed to authenticate the call at the google vision api end.
+           The axios library is a possible library to use to perform a POST request
+         */
+        return axios.post<GoogleVisionResponse>(this.googleVisionUrl, dataOptions)
+            .then((response: AxiosResponse<GoogleVisionResponse>) => {
             return response.data;
         });
     }

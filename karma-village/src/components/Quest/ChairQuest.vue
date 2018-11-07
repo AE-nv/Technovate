@@ -16,7 +16,7 @@
                             My ideal chair has these characteristics:
                         </h3>
                         <div class="list-container">
-                            <ul type="" id="checks">
+                            <ul type="checks" id="checks">
                                 <li :style="{color: isChair}">Chair</li>
                                 <li :style="{color: isColorRed}">Color: red</li>
                                 <li :style="{color: getPlastic}">Made out of plastic</li>
@@ -35,6 +35,7 @@
                     </div>
                     <div class="file-uploading" style="width: 95%;" v-show="!uploading && !succesfulUpload">
                         <h3 style="text-align: center;">Add a picture of the chair you can offer</h3>
+                        <!--TODO: place a drop-zone element here, and call the function onFilesAdded whenever a file is added-->
                         <drop-zone :enabled="!uploading" @filesAdded="onFilesAdded"></drop-zone>
                         <div v-if="files">
                             <p v-for="file in files">
@@ -49,19 +50,19 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {IQuest} from '../../models/IQuest';
-    import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import DropZone from '@/components/Shared/DropZone.vue';
-    import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
-    import JQuery from 'jquery';
+import {Component, Prop, Vue} from 'vue-property-decorator';
+import {IQuest} from '../../models/IQuest';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import DropZone from '@/components/Shared/DropZone.vue';
+import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
+import JQuery from 'jquery';
 
-    const $ = JQuery;
+const $ = JQuery;
 
-    @Component({
-        components: {DropZone, NavigationComponent},
-    })
-    export default class ChairQuest extends Vue {
+@Component({
+    components: {DropZone, NavigationComponent},
+})
+export default class ChairQuest extends Vue {
 
     get getPlastic(): string {
         return this.getColorKeywordPresent('plastic');
@@ -76,6 +77,7 @@
     }
 
     get isQuestComplete(): boolean {
+        // TODO: return true when all keywords are
         return this.isKeywordPresent('chair')
             && this.isKeywordPresent('plastic')
             && this.isKeywordPresent('red');
@@ -84,39 +86,42 @@
     @Prop() public quest!: IQuest;
     public keyWords: string[] = [];
     public files: File[] = [];
-    private dominantColor: string;
     private uploading = false;
     private succesfulUpload = false;
 
     public onFilesAdded(file: File[]) {
-            this.uploading = true;
-            this.succesfulUpload = false;
+        this.uploading = true;
+        this.succesfulUpload = false;
 
-            this.files = file;
-            const file1 = file[0];
-            googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
+        this.files = file;
+        const file1 = file[0];
+
+        // TODO: do a google VISION API request and parse all the keywords (labelannotations -> .description) using the GoogleApiService (placed in the services package)
+        googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
             this.keyWords = response.responses[0].labelAnnotations
                 .map((labelAnnotation) => labelAnnotation.description);
 
             const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
-            this.dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
-            this.keyWords.push(this.dominantColor);
+            const dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
+            this.keyWords.push(dominantColor);
 
             this.uploading = false;
             if (this.isQuestComplete) {
-                    this.succesfulUpload = true;
-                    $('.checkmark').toggle();
+                this.succesfulUpload = true;
+                $('.checkmark').toggle();
             }
         }).catch(reason => {
-                this.uploading = false;
-                this.succesfulUpload = false;
-                console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
-                alert('An error occured while labeling the image through google vision api');
+            this.uploading = false;
+            this.succesfulUpload = false;
+            console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
+            alert('An error occured while labeling the image through google vision api');
         });
 
     }
 
     private getColorKeywordPresent(keyWord: string): string {
+        // TODO: return the color green whenever the keyWord is present in the keywords field
+        // make use of the isKeywordPresent function
         if (this.isKeywordPresent(keyWord)) {
             return 'green';
         }
@@ -127,6 +132,7 @@
     }
 
     private isKeywordPresent(keyword: string): boolean {
+        // TODO: check if the keyword is present in the keywords field
         return this.files && this.keyWords && this.keyWords.indexOf(keyword) > -1;
     }
 

@@ -53,7 +53,7 @@ export default class BikeQuest extends Vue {
     public responses: string[] = [];
     public response: string = '';
 
-    //TODO: create a computed function which returns whether the quest is complete or not
+    // TODO: create a computed function which returns whether the quest is complete or not
     get isQuestComplete(): boolean {
         let completed = false;
         for (const res of this.responses) {
