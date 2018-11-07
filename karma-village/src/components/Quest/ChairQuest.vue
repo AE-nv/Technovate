@@ -35,7 +35,7 @@
                     </div>
                     <div class="file-uploading" style="width: 95%;" v-show="!uploading && !succesfulUpload">
                         <h3 style="text-align: center;">Add a picture of the chair you can offer</h3>
-                        <drop-zone :enabled="!uploading" v-on:filesAdded="onFilesAdded"></drop-zone>
+                        <drop-zone :enabled="!uploading" @filesAdded="onFilesAdded"></drop-zone>
                         <div v-if="files">
                             <p v-for="file in files">
                                 {{file.name}}
