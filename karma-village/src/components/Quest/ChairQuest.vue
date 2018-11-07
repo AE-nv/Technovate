@@ -1,5 +1,4 @@
 <template>
-<v-container>
     <div style="height: 100%;">
         <navigation-component>
             <v-btn flat @click="$router.go(-1)">
@@ -7,7 +6,6 @@
             </v-btn>
             <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
         </navigation-component>
-        <v-card>
         <div style="height: 100%">
             <v-container class="info">
                 <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-evenly; align-items: center">
@@ -47,9 +45,7 @@
                 </div>
             </v-container>
         </div>
-        </v-card>
     </div>
-</v-container>
 </template>
 
 <script lang="ts">
