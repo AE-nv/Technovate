@@ -30,10 +30,7 @@
                                 </v-card>
                             </div>
                         </div>
-                        <div>
-                            <v-textarea auto-grow v-model="response" box rows="1" color="aliceblue" label="Response"></v-textarea>
-                            <v-btn v-on:click="addResponse" color="primary">Submit</v-btn>
-                        </div>
+                        <text-area-box @text="addResponse"></text-area-box>
                     </div>
             </v-container>
         </div>
@@ -43,9 +40,10 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import NavigationComponent from '@/components/Shared/Navigation.vue';
+import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
 @Component({
-    components: { NavigationComponent },
+    components: { NavigationComponent, TextAreaBox },
 })
 export default class BikeQuest extends Vue {
     public responses: string[] = [];
@@ -59,12 +57,10 @@ export default class BikeQuest extends Vue {
             }
         }
         return completed;
-        // return this.responses.length >= 3;
     }
 
-    public addResponse(): void {
-        this.responses.push(this.response);
-        this.response = '';
+    public addResponse(value: string): void {
+        this.responses.push(value);
     }
 }
 </script>
