@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <div>
-                            <div style="padding-bottom:10px;" v-for="res in responses">
+                            <div style="padding-bottom:10px;" v-for="(res, index) in responses" :key="index">
                                 <v-card style="padding:10px;" color="primary">
                                     {{res}}
                                 </v-card>
@@ -43,9 +43,6 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import NavigationComponent from '@/components/Shared/Navigation.vue';
-import JQuery from 'jquery';
-
-const $ = JQuery;
 
 @Component({
     components: { NavigationComponent },
