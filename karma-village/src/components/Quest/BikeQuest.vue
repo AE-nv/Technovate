@@ -18,7 +18,7 @@
                             Preferably not too far from Leuven.
                             Leave a comment if you have one available.
                             <div class="half">
-                                <v-img :src="require('@/assets/bike.jpeg')"></v-img>
+                                <v-img :src="require('@/assets/bike.png')"></v-img>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ export default class BikeQuest extends Vue {
     .info-container {
         display: flex;
         justify-content: space-between;
-        align-items: center;;
+        align-items: center;
     }
 
 </style>
