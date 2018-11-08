@@ -13,22 +13,24 @@
                         <h3 class="quest-header">
                             Have a bike for me?<br/>
                         </h3>
-                        <div class="info-container">
+                        <div class="quest-image-container">
+                                <div class="quest-image">
+                                <v-img  :src="require('@/assets/bike.png')"></v-img>
+                            </div>
+                         </div>
+                        <div>
                             I'm looking for a bike with two wheels, pedals and a saddle. 
                             Preferably not too far from Leuven.
                             Leave a comment if you have one available.
-                            <div class="half">
-                                <v-img :src="require('@/assets/bike.png')"></v-img>
-                            </div>
                         </div>
                     </div>
                     <div>
                         <div>
                             <!--TODO 1: show the last response -->
                             <!--TODO 2: show the list of all responses -->
-                            <div style="padding-bottom:10px;" v-for="(res, index) in responses" :key="index">
-                                <v-card style="padding:10px;" color="primary">
-                                    {{res}}
+                            <div class="card" v-for="(res, index) in responses" :key="index">
+                                <v-card class="card-content" color="primary">
+                                    <span class="card-content-text">{{res}}</span>
                                 </v-card>
                             </div>
                         </div>
@@ -71,10 +73,25 @@ export default class BikeQuest extends Vue {
 </script>
 
 <style lang="scss">
-    .info-container {
+    .quest-image-container{
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
     }
 
+    .quest-image{
+        width: 80%;
+    }
+
+    .card {
+        padding-bottom: 10px;
+    }
+
+    .card-content {
+        padding: 10px;
+    }
+
+    .card-content-text {
+        color: aliceblue;
+    }
 </style>
