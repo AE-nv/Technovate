@@ -1,6 +1,6 @@
 <template>
     <v-toolbar app full-width>
-        <v-toolbar-items style="padding: 0; display: flex; width: 100%">
+        <v-toolbar-items>
             <slot></slot>
         </v-toolbar-items>
     </v-toolbar>
@@ -14,12 +14,16 @@ export default class Navigation extends Vue {}
 </script>
 
 <style lang="scss">
+
 .v-toolbar__content {
   width: 100%;
   display: flex;
   padding: 0;
   .v-toolbar__items {
     justify-content: space-between;
+    padding: 0; 
+    display: flex; 
+    width: 100%
   }
 }
 
