@@ -21,6 +21,29 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
+    .quest-header{
+        text-align: center;
+        padding-bottom: 12px;
+    }
+
+    .full-height{
+        height:100%;
+    }
+
+    .info {
+        color: aliceblue;
+        height: 100%;
+        background-color: #8895dc !important;
+
+        .half {
+            width: 50%;
+            height: auto;
+        }
+
+        .info-header {
+            padding-bottom: 12px;
+        }
+    }
 
 </style>

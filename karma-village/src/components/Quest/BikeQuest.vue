@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100%;">
+    <div class="full-height">
         <navigation-component>
             <v-btn flat @click="$router.go(-1)">
                 <v-icon>arrow_back</v-icon>
@@ -7,10 +7,10 @@
             <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
         </navigation-component>
 
-        <div style="height: 100%">
+        <div class="full-height">
             <v-container class="info">
                     <div class="info-header">
-                        <h3 style="text-align: center;padding-bottom: 12px;">
+                        <h3 class="quest-header">
                             Have a bike for me?<br/>
                         </h3>
                         <div class="info-container">
@@ -71,21 +71,6 @@ export default class BikeQuest extends Vue {
 </script>
 
 <style lang="scss">
-    .info {
-        color: aliceblue;
-        height: 100%;
-        background-color: #8895dc !important;
-
-        .half {
-            width: 50%;
-            height: auto;
-        }
-
-        .info-header {
-            padding-bottom: 12px;
-        }
-    }
-
     .info-container {
         display: flex;
         justify-content: space-between;
