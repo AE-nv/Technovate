@@ -1,9 +1,9 @@
 <template>
     <v-toolbar app>
         <v-toolbar-title class="headline font-weight-ligth has-text-weight-semibold is-uppercase">
-            <span>Karma Village</span>
+            <span>Technovate</span>
             <span>  -  </span>
-            <span class="font-weight-light">Technovate</span>
+            <span class="font-weight-light">Quest App</span>
         </v-toolbar-title>
     </v-toolbar>
 </template>
