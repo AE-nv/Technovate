@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100%;">
+    <div class="full-height">
         <navigation-component>
             <v-btn flat @click="$router.go(-1)">
                 <v-icon>arrow_back</v-icon>
@@ -8,10 +8,10 @@
         </navigation-component>
 
 
-        <div style="height: 100%">
+        <div class="full-height">
             <v-container class="info">
                 <div class="info-header">
-                    <h1 style="text-align: center;padding-bottom: 12px;">
+                    <h1 class="quest-header">
                         Oh no, my car broke down! Can you recommend me a new one?<br/>
                     </h1>
                     <div class="info-container">
@@ -108,16 +108,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .info {
-        color: aliceblue;
-        height: 100%;
-        background-color: #8895dc !important;
-        .half {
-            width: 50%;
-            height: auto;
-        }
-    }
-
     .list-container {
         display: flex;
         justify-content: space-between;

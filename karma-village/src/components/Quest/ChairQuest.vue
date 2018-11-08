@@ -1,17 +1,16 @@
 <template>
-    <div style="height: 100%;">
+    <div class="full-height">
         <navigation-component>
             <v-btn flat @click="$router.go(-1)">
                 <v-icon>arrow_back</v-icon>
             </v-btn>
             <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
         </navigation-component>
-        <div style="height: 100%">
+        <div class="full-height">
             <v-container class="info">
                 <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-evenly; align-items: center">
-
                     <div>
-                        <h3 style="text-align: center;padding-bottom: 12px;">
+                        <h3 class="quest-header">
                             Have a chair for me?<br/>
                             My ideal chair has these characteristics:
                         </h3>
@@ -141,16 +140,6 @@ export default class ChairQuest extends Vue {
 </script>
 
 <style lang="scss">
-    .info {
-        color: aliceblue;
-        height: 100%;
-        background-color: #8895dc !important;
-        .half {
-            width: 50%;
-            height: auto;
-        }
-    }
-
     .list-container {
         display: flex;
         justify-content: space-between;
