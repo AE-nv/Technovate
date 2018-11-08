@@ -3,7 +3,7 @@
         <!-- TODO: bind value to property -->
         <v-textarea auto-grow v-model="text" box rows="1" color="aliceblue" :label="label"></v-textarea>
         <!-- TODO: bind a function to a click event -->
-        <v-btn @click="addResponse" color="primary" class="text-area-box__submit-btn">{{ btnText }}</v-btn>
+        <v-btn @click="addResponse" color="primary" class="text-area-box__submit-btn" :disabled="!text">{{ btnText }}</v-btn>
     </div>
 </template>
 

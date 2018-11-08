@@ -11,9 +11,9 @@
         <div style="height: 100%">
             <v-container class="info">
                 <div class="info-header">
-                    <h3 style="text-align: center;padding-bottom: 12px;">
+                    <h1 style="text-align: center;padding-bottom: 12px;">
                         Oh no, my car broke down! Can you recommend me a new one?<br/>
-                    </h3>
+                    </h1>
                     <div class="info-container">
                         <p>Search for cars using the inputfield below. If you find one that suits me, recommend
                             it!</p>
@@ -30,6 +30,20 @@
 
                 </div>
                 <hr/>
+
+                <h1>
+                    Recommended Cars
+                </h1>
+
+                <!-- TODO: Implement a message to show when the list of recommendations is empty -->
+                <car-list :cars="recommendations" :btnText="'x'" @carClicked="unrecommend"></car-list>
+
+                <hr />
+
+                <h1>
+                    Search for Cars
+                </h1>
+
                 <div class="car-quest__text-box">
                     <!-- Include the text-area-box component from the components/Shared folder -->
                     <text-area-box @text="searchForCars"
@@ -37,23 +51,12 @@
                                    :label="'Car keywords go here'"></text-area-box>
                 </div>
 
-                <hr />
+                <hr/>
 
                 <div class="car-quest__results">
-
                     <!-- TODO: Implement a message to show when the list of cars is empty -->
-                    <div v-if="foundCars.length === 0">
-                        No cars with these keywords were found...
-                    </div>
-
-                    <div v-if="foundCars.length > 0">
-                        <!--TODO: show the matching cars -->
-                        <div style="padding-bottom:10px;" v-for="(res, index) in foundCars" :key="index">
-                            <v-card style="padding:10px;" color="primary">
-                                {{res.make_display}} - {{res.model_trim}}
-                            </v-card>
-                        </div>
-                    </div>
+                    <!-- TODO: Extract this and the recommended cars to a shared component -->
+                    <car-list :cars="foundCars" :btnText="'Recommend!'" @carClicked="recommend"></car-list>
                 </div>
             </v-container>
         </div>
@@ -61,34 +64,46 @@
 </template>
 
 <script lang="ts">
+    import CarList from '@/components/Shared/CarList.vue';
     import NavigationComponent from '@/components/Shared/Navigation.vue';
     import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
     import { Component, Vue } from 'vue-property-decorator';
     import { Car, carSearchService } from '../../services/CarSearchService';
 
     @Component({
-    components: {
-        NavigationComponent,
-        TextAreaBox,
-    },
-})
-export default class CarQuest extends Vue {
-    public recommendations: Car[] = [];
-    public foundCars: Car[] = [];
+        components: {
+            NavigationComponent,
+            TextAreaBox,
+            CarList
+        },
+    })
+    export default class CarQuest extends Vue {
+        public recommendations: Car[] = [];
+        public foundCars: Car[] = [];
 
-    // TODO: create a computed function which returns whether the quest is complete or not
-    get isQuestComplete(): boolean {
-        return !!this.recommendations.filter((car: Car) => car.make_display.toLowerCase().indexOf('bmw'));
-    }
+        // TODO: create a computed function which returns whether the quest is complete or not
+        get isQuestComplete(): boolean {
+            return !!this.recommendations.find((car: Car) => car.make_display.toLowerCase().indexOf('bmw') > -1);
+        }
 
-    public searchForCars(value: string): void {
-        this.foundCars = carSearchService.search(value);
-    }
+        // TODO: Call the carSearchService in order to search for cars
+        public searchForCars(value: string): void {
+            this.foundCars = carSearchService.search(value);
+        }
 
-    public recommend(value: Car): void {
-        this.recommendations.push(value);
+        // TODO: Implement the action to add a car to the recomendations list
+        public recommend(value: Car): void {
+            this.recommendations.push(value);
+            this.foundCars.splice(this.foundCars.indexOf(value), 1);
+        }
+
+        // TODO: Implement the action to add a car to the recomendations list
+        public unrecommend(value: Car): void {
+            this.foundCars.push(value);
+            this.recommendations.splice(this.recommendations.indexOf(value), 1);
+        }
+
     }
-}
 
 </script>
 
