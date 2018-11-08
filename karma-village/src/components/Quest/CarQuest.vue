@@ -9,56 +9,72 @@
 
 
         <div class="full-height">
-            <v-container class="info">
-                <div class="info-header">
-                    <h1 class="quest-header">
-                        Oh no, my car broke down! Can you recommend me a new one?<br/>
-                    </h1>
-                    <div class="info-container">
-                        <p>Search for cars using the inputfield below. If you find one that suits me, recommend
-                            it!</p>
+            <v-card>
+                <v-container>
+                    <div class="info-header">
+                        <h1 class="quest-header">
+                            I'm looking for a car.<br/>
+                        </h1>
+                        <h3 class="quest-header">
+                            Oh no, my car broke down!
+                        </h3>
+                        <h3 class="quest-header">
+                            Can you recommend me a new one?
+                        </h3>
+
+                        <div class="info-container">
+                            <p>Search for cars using the inputfield below. If you find one that suits me, recommend
+                                it!</p>
+                        </div>
+                        <div class="info-container">
+                            <p>My car should have:</p>
+                            <ul>
+                                <li>Room for 3 children</li>
+                                <li>A sporty look</li>
+                                <li>A lot of safety features</li>
+                                <li>A BMW Logo</li>
+                            </ul>
+                        </div>
+
                     </div>
-                    <div class="info-container">
-                        <p>My car should have:</p>
-                        <ul>
-                            <li>Room for 3 children</li>
-                            <li>A sporty look</li>
-                            <li>A lot of safety features</li>
-                            <li>A BMW Logo</li>
-                        </ul>
-                    </div>
+                </v-container>
+            </v-card>
 
-                </div>
-                <hr/>
+            <div class="car-quest__recommended-cars">
+                <v-card>
+                    <v-container>
+                        <h1>
+                            Recommended Cars
+                        </h1>
 
-                <h1>
-                    Recommended Cars
-                </h1>
+                        <!-- TODO: Implement a message to show when the list of recommendations is empty -->
+                        <car-list :cars="recommendations" :btnText="'x'" @carClicked="unrecommend"></car-list>
+                    </v-container>
+                </v-card>
+            </div>
 
-                <!-- TODO: Implement a message to show when the list of recommendations is empty -->
-                <car-list :cars="recommendations" :btnText="'x'" @carClicked="unrecommend"></car-list>
+            <div class="car-quest__car-search">
+                <v-card>
+                    <v-container>
+                        <h1>
+                            Search for Cars
+                        </h1>
 
-                <hr />
+                        <div class="car-quest__text-box">
+                            <!-- Include the text-area-box component from the components/Shared folder -->
+                            <text-area-box @text="searchForCars"
+                                           :btnText="'Search Cars'"
+                                           :label="'Car keywords go here'"></text-area-box>
+                        </div>
 
-                <h1>
-                    Search for Cars
-                </h1>
-
-                <div class="car-quest__text-box">
-                    <!-- Include the text-area-box component from the components/Shared folder -->
-                    <text-area-box @text="searchForCars"
-                                   :btnText="'Search Cars'"
-                                   :label="'Car keywords go here'"></text-area-box>
-                </div>
-
-                <hr/>
-
-                <div class="car-quest__results">
-                    <!-- TODO: Implement a message to show when the list of cars is empty -->
-                    <!-- TODO: Extract this and the recommended cars to a shared component -->
-                    <car-list :cars="foundCars" :btnText="'Recommend!'" @carClicked="recommend"></car-list>
-                </div>
-            </v-container>
+                        <div class="car-quest__found-cars">
+                            <!-- TODO: Implement a message to show when the list of cars is empty -->
+                            <!-- TODO: Extract this and the recommended cars to a shared component -->
+                            <car-list :cars="foundCars" :btnText="'Recommend!'" @carClicked="recommend"></car-list>
+                        </div>
+                    </v-container>
+                </v-card>
+            </div>
         </div>
     </div>
 </template>
@@ -74,7 +90,7 @@
         components: {
             NavigationComponent,
             TextAreaBox,
-            CarList
+            CarList,
         },
     })
     export default class CarQuest extends Vue {
@@ -104,7 +120,6 @@
         }
 
     }
-
 </script>
 
 <style lang="scss" scoped>
@@ -123,10 +138,7 @@
         margin-bottom: 10px;
     }
 
-    hr {
-        width: 100%;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .v-card {
+        margin-bottom: 10px;
     }
-
 </style>

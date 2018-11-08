@@ -14,15 +14,7 @@ interface ApiResponse {
 
 class CarSearchService {
 
-    public search(keyword: string): Car[] {
-        // const url = `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&keyword=${keyword}&full_results=0&_=1541665947927`;
-
-        // TODO Implement a function to get the results from the response that match the keyword.
-        let filter = this.carApiResponse.Trims.filter((car: Car) => car.model_trim.toLowerCase().indexOf(keyword.toLowerCase()) > -1 || car.make_display.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
-        return filter;
-    }
-
-    carApiResponse = {
+    public carApiResponse = {
         Trims: [
             {
                 model_id: '72275',
@@ -4526,6 +4518,14 @@ class CarSearchService {
             },
         ],
     };
+
+    public search(keyword: string): Car[] {
+        // const url = `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&keyword=${keyword}&full_results=0&_=1541665947927`;
+
+        // TODO Implement a function to get the results from the response that match the keyword.
+        const filter = this.carApiResponse.Trims.filter((car: Car) => car.model_trim.toLowerCase().indexOf(keyword.toLowerCase()) > -1 || car.make_display.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
+        return filter;
+    }
 
 }
 

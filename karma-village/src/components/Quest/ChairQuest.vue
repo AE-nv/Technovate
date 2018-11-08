@@ -49,12 +49,12 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {IQuest} from '../../models/IQuest';
-import NavigationComponent from '@/components/Shared/Navigation.vue';
 import DropZone from '@/components/Shared/DropZone.vue';
-import {googleApiService, GoogleVisionResponse} from '@/services/GoogleApi.service';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import { googleApiService, GoogleVisionResponse } from '@/services/GoogleApi.service';
 import JQuery from 'jquery';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { IQuest } from '../../models/IQuest';
 
 const $ = JQuery;
 
@@ -139,7 +139,7 @@ export default class ChairQuest extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .list-container {
         display: flex;
         justify-content: space-between;
