@@ -8,7 +8,7 @@
         </navigation-component>
 
         <div class="full-height">
-            <v-container class="info">
+            <v-container>
                     <div class="info-header">
                         <h3 class="quest-header">
                             Have a bike for me?<br/>
@@ -91,7 +91,4 @@ export default class BikeQuest extends Vue {
         padding: 10px;
     }
 
-    .card-content-text {
-        color: aliceblue;
-    }
 </style>

@@ -12,19 +12,16 @@
             <v-card>
                 <v-container>
                     <div class="info-header">
-                        <h1 class="quest-header">
+                        <h3 class="quest-header">
                             I'm looking for a car.<br/>
-                        </h1>
-                        <h3 class="quest-header">
-                            Oh no, my car broke down!
                         </h3>
-                        <h3 class="quest-header">
-                            Can you recommend me a new one?
-                        </h3>
-
                         <div class="info-container">
-                            <p>Search for cars using the inputfield below. If you find one that suits me, recommend
-                                it!</p>
+                            <p>
+                                Oh no, my car broke down! 
+                                Can you recommend me a new one?
+                                Search for cars using the inputfield below. 
+                                If you find one that suits me, recommend it!
+                            </p>
                         </div>
                         <div class="info-container">
                             <p>My car should have:</p>

@@ -31,10 +31,8 @@ export default class App extends Vue {
         height:100%;
     }
 
-    .info {
-        color: aliceblue;
+    .quest-info {
         height: 100%;
-        background-color: #8895dc !important;
 
         .half {
             width: 50%;

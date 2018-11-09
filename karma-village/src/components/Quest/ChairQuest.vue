@@ -7,14 +7,17 @@
             <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
         </navigation-component>
         <div class="full-height">
-            <v-container class="info">
+            <v-container class="quest-info">
                 <div style="display: flex;height: 100%;flex-direction: column;justify-content: space-evenly; align-items: center">
                     <div>
                         <h3 class="quest-header">
                             Have a chair for me?<br/>
-                            My ideal chair has these characteristics:
                         </h3>
-                        <div class="list-container">
+                        <div class="info-container">
+                            <p>
+                                My ideal chair has these characteristics:
+                            </p>
+                            <div class="list-container">
                             <ul type="checks" id="checks">
                                 <li :style="{color: isChair}">Chair</li>
                                 <li :style="{color: isColorRed}">Color: red</li>
@@ -23,7 +26,8 @@
                             <div class="half">
                                 <v-img :src="require('@/assets/Red_Chair.png')"></v-img>
                             </div>
-                        </div>
+                            </div>
+                        </div>            
                     </div>
                     <hr style="width: 100%;"/>
                     <div class="circle-loader" style="justify-self: center; display: none;margin-top: 24px;margin-bottom: 12px;" v-show="uploading">
