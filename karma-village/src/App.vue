@@ -24,7 +24,6 @@ export default class App extends Vue {
 <style lang="scss">
     .quest-header{
         text-align: center;
-        padding-bottom: 12px;
     }
 
     .full-height{

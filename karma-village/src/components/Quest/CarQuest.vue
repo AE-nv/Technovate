@@ -11,19 +11,17 @@
         <div class="full-height">
             <v-card>
                 <v-container>
-                    <div class="info-header">
-                        <h3 class="quest-header">
+                    <div>
+                        <h2 class="quest-header">
                             I'm looking for a car.<br/>
-                        </h3>
-                        <div class="info-container">
+                        </h2>
+                        <div>
                             <p>
                                 Oh no, my car broke down! 
                                 Can you recommend me a new one?
                                 Search for cars using the inputfield below. 
                                 If you find one that suits me, recommend it!
                             </p>
-                        </div>
-                        <div class="info-container">
                             <p>My car should have:</p>
                             <ul>
                                 <li>Room for 3 children</li>
@@ -32,20 +30,18 @@
                                 <li>A BMW Logo</li>
                             </ul>
                         </div>
-
                     </div>
                 </v-container>
             </v-card>
-
             <div class="car-quest__recommended-cars">
                 <v-card>
                     <v-container>
-                        <h1>
+                        <h2 class="quest-header">
                             Recommended Cars
-                        </h1>
+                        </h2>
 
                         <!-- TODO: Implement a message to show when the list of recommendations is empty -->
-                        <car-list :cars="recommendations" :btnText="'x'" @carClicked="unrecommend"></car-list>
+                        <car-list :cars="recommendations" :btnText="'Remove'" @carClicked="unrecommend"></car-list>
                     </v-container>
                 </v-card>
             </div>
@@ -53,10 +49,9 @@
             <div class="car-quest__car-search">
                 <v-card>
                     <v-container>
-                        <h1>
+                        <h2 class="quest-header">
                             Search for Cars
-                        </h1>
-
+                        </h2>
                         <div class="car-quest__text-box">
                             <!-- Include the text-area-box component from the components/Shared folder -->
                             <text-area-box @text="searchForCars"
@@ -128,11 +123,6 @@
 
     ul {
         list-style: disc;
-    }
-
-    .car-quest__text-box {
-        margin-top: 20px;
-        margin-bottom: 10px;
     }
 
     .v-card {
