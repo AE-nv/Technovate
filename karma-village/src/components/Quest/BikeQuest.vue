@@ -8,37 +8,40 @@
         </navigation-component>
 
         <div class="full-height">
-            <v-container>
-                    <div class="info-header">
-                        <h3 class="quest-header">
-                            Have a bike for me?<br/>
-                        </h3>
-                        <div class="quest-image-container">
-                                <div class="quest-image">
-                                <v-img  :src="require('@/assets/bike.png')"></v-img>
-                            </div>
-                         </div>
-                        <div>
+            <v-card>
+                <v-container>
+                    <h2 class="quest-header">
+                        Have a bike for me?
+                    </h2>
+                    <div class="quest-container">
+                        <div class="quest-image">
+                            <v-img  :src="require('@/assets/bike.png')"></v-img>
+                        </div>
+                    </div>
+                    <div class="quest-container">
+                        <p>
                             I'm looking for a bike with two wheels, pedals and a saddle. 
                             Preferably not too far from Leuven.
                             Leave a comment if you have one available.
-                        </div>
+                        </p>
                     </div>
+                </v-container>
+            </v-card>
+            <v-card>
+                <v-container>
                     <div>
-                        <div>
-                            <!--TODO 1: show the last response -->
-                            <!--TODO 2: show the list of all responses -->
-                            <div class="card" v-for="(res, index) in responses" :key="index">
-                                <v-card class="card-content" color="primary">
-                                    <span class="card-content-text">{{res}}</span>
-                                </v-card>
-                            </div>
-                        </div>
+                        <!--TODO 1: show the last response -->
+                        <!--TODO 2: show the list of all responses -->
+                        <v-card class="response-card" v-for="(res, index) in responses" :key="index">
+                            {{res}}
+                        </v-card>
+
                         <!--TODO 1: create a text box + add the response to the list -->
                         <!--TODO 2: add the textbox to a seperate component -->
                         <text-area-box @text="addResponse"></text-area-box>
                     </div>
-            </v-container>
+                </v-container>
+            </v-card>
         </div>
     </div>
 </template>
@@ -73,7 +76,7 @@ export default class BikeQuest extends Vue {
 </script>
 
 <style lang="scss">
-    .quest-image-container{
+    .quest-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -83,11 +86,8 @@ export default class BikeQuest extends Vue {
         width: 80%;
     }
 
-    .card {
-        padding-bottom: 10px;
-    }
-
-    .card-content {
+    .response-card {
+        margin: 0px 0px 10px 0px;
         padding: 10px;
     }
 

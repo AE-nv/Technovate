@@ -38,10 +38,10 @@ export default class App extends Vue {
             width: 50%;
             height: auto;
         }
+    }
 
-        .info-header {
-            padding-bottom: 12px;
-        }
+    .v-card {
+        margin: 10px;
     }
 
 </style>
