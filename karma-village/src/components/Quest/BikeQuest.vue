@@ -29,12 +29,13 @@
             </v-card>
             <v-card>
                 <v-container>
-                    <v-textarea auto-grow v-model="text" box rows="1" :label="label"></v-textarea>
-                    <v-card class="response-card">
-                        {{ text }}
+                     <v-card  v-for="(res, index) in responses" :key="index" class="response-card">
+                        {{ res }}
                     </v-card>
+
+                    <v-textarea auto-grow v-model="text" box rows="1" label="Response"></v-textarea>
+                    <v-btn @click="addResponse" :disabled="!text">Submit</v-btn>
                     
-                    <!--TODO 3: add response to list + show the list of all responses -->
                     <!--TODO 4: implement function to determine if quest is complete -->
                     <!--TODO 5: add the textbox to a seperate component -->
 
@@ -52,10 +53,16 @@ import NavigationComponent from '@/components/Shared/Navigation.vue';
     components: { NavigationComponent },
 })
 export default class BikeQuest extends Vue {
-    private text: string = '';
+    public text: string = '';
+    public responses: string[] = [];
     
     get isQuestComplete(): boolean {
         return false;
+    }
+
+    public addResponse(): void {
+        this.responses.push(this.text);
+        this.text = '';
     }
 
 }
