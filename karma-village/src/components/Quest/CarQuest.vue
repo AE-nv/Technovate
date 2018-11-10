@@ -38,9 +38,13 @@
                         <h3 class="quest-header">
                             Recommended Cars
                         </h3>
-
-                        <!-- TODO: Show list of recommended cars -->
-                   
+                        <div v-for="(car, index) in foundCars" :key="index">
+                            <v-card class="car-card">
+                                <div>
+                                    {{car.make_display}} - {{car.model_trim}}
+                                </div>
+                            </v-card>
+                        </div>                   
                     </v-container>
                 </v-card>
             </div>
@@ -51,10 +55,8 @@
                         <h3 class="quest-header">
                             Search for Cars
                         </h3>
+                        <text-area-box @text="searchForCars" :btnText="'Search Cars'" :label="'Car keywords go here'"></text-area-box>
 
-                        <!-- TODO 1: include the text-area-box component -->
-                        <!-- TODO 2: implement function that calls the CarSearchService -->
-                        <!-- TODO 3: show list of cars returned by the CarSearchService -->
                         <!-- TODO 4: implement function to recommend car -->
                         <!-- TODO 5: implement function to unrecommend car -->
                         <!-- TODO 6: implement a message to show when the list of cars is empty -->
@@ -71,18 +73,23 @@
     import NavigationComponent from '@/components/Shared/Navigation.vue';
     import { Component, Vue } from 'vue-property-decorator';
     import { Car, carSearchService } from '../../services/CarSearchService';
+    import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
     @Component({
         components: {
             NavigationComponent,
+            TextAreaBox,
         },
     })
     export default class CarQuest extends Vue {
-        public recommendations: Car[] = [];
         public foundCars: Car[] = [];
 
         get isQuestComplete(): boolean {
             return false;
+        }
+
+        public searchForCars(value: string): void {
+            this.foundCars = carSearchService.search(value);
         }
 
     }
@@ -95,5 +102,14 @@
 
     .v-card {
         margin-bottom: 10px;
+    }
+
+    .car-card {
+        margin: 0px 0px 10px 0px;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 100%;
     }
 </style>
