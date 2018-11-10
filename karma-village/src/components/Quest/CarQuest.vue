@@ -100,7 +100,7 @@
         public foundCars: Car[] = [];
 
         get isQuestComplete(): boolean {
-            return false;
+            return !!this.recommendations.find((car: Car) => car.make_display.toLowerCase().indexOf('bmw') > -1);
         }
 
         public searchForCars(value: string): void {
