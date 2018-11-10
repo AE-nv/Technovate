@@ -58,7 +58,8 @@
                                     {{car.make_display}} - {{car.model_trim}}
                                 </div>
                             </v-card>
-                        </div>     
+                        </div>
+
                         <!-- TODO 4: implement function to recommend car -->
                         <!-- TODO 5: implement function to unrecommend car -->
                         <!-- TODO 6: implement a message to show when the list of cars is empty -->
