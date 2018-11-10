@@ -41,7 +41,7 @@
                         </h2>
 
                         <!-- TODO: Implement a message to show when the list of recommendations is empty -->
-                        <car-list :cars="recommendations" :btnText="'Remove'" @carClicked="unrecommend"></car-list>
+                        <car-list :cars="recommendations" :btnText="'thumb_down'" @carClicked="unrecommend"></car-list>
                     </v-container>
                 </v-card>
             </div>
@@ -62,7 +62,7 @@
                         <div class="car-quest__found-cars">
                             <!-- TODO: Implement a message to show when the list of cars is empty -->
                             <!-- TODO: Extract this and the recommended cars to a shared component -->
-                            <car-list :cars="foundCars" :btnText="'Recommend!'" @carClicked="recommend"></car-list>
+                            <car-list :cars="foundCars" :btnText="'thumb_up'" @carClicked="recommend"></car-list>
                         </div>
                     </v-container>
                 </v-card>

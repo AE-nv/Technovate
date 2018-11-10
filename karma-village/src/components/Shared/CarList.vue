@@ -10,8 +10,8 @@
                     {{car.make_display}} - {{car.model_trim}}
                 </div>
                 <div class="car-quest__car-card-btn">
-                    <v-btn @click="carClicked(car)">
-                        {{ btnText }}
+                    <v-btn flat icon @click="carClicked(car)">
+                        <v-icon>{{btnText}}</v-icon>
                     </v-btn>
                 </div>
             </v-card>
@@ -42,5 +42,9 @@
     .car-card {
         margin: 0px 0px 10px 0px;
         padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 100%;
     }
 </style>
