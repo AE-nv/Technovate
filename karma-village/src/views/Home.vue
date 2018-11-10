@@ -1,9 +1,9 @@
 <template>
-<v-container>
-  <div class="home">
-    <questList/>
-  </div>
-</v-container>
+  <v-container>
+    <div class="home">
+      <questList/>
+    </div>
+  </v-container>
 </template>
 
 <script lang="ts">

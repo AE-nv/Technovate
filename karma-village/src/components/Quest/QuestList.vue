@@ -1,22 +1,11 @@
 <template>
-    <v-list two-line>
-        <template>
-            <v-img
-                   contain
-                   class="my-3 home-image"
-                   height="200"
-                    :src="require('@/assets/logo.svg')"></v-img>
-            <div v-for="(quest,index) in quests" :key="index">
-                <div :key="index">
-                    <quest-tile v-bind:quest="quest"></quest-tile>
-                    <v-divider
-                            v-if="index + 1 < quests.length"
-                            :key="index"
-                    ></v-divider>
-                </div>
-            </div>
-        </template>
-    </v-list>
+    <div>
+        <v-card v-for="(quest,index) in quests" :key="index">
+            <v-container>
+                <quest-tile v-bind:quest="quest"></quest-tile>
+             </v-container>
+        </v-card>
+   </div>
 </template>
 
 <script lang="ts">
@@ -41,7 +30,5 @@ export default class QuestList extends Vue {
 </script>
 
 <style>
-/* .home > div > div, .home > div{
-        background-color: #132584!important;
-    } */
+
 </style>

@@ -32,15 +32,6 @@ export default class App extends Vue {
         height:100%;
     }
 
-    .quest-info {
-        height: 100%;
-
-        .half {
-            width: 50%;
-            height: auto;
-        }
-    }
-
     .v-card {
         margin: 10px;
     }
