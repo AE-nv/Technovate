@@ -32,12 +32,7 @@
                      <v-card  v-for="(res, index) in responses" :key="index" class="response-card">
                         {{ res }}
                     </v-card>
-
-                    <v-textarea auto-grow v-model="text" box rows="1" label="Response"></v-textarea>
-                    <v-btn @click="addResponse" :disabled="!text">Submit</v-btn>
-                    
-                    <!--TODO 5: add the textbox to a seperate component -->
-
+                    <text-area-box @text="addResponse"></text-area-box>
                 </v-container>
             </v-card>
         </div>
@@ -47,14 +42,15 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import NavigationComponent from '@/components/Shared/Navigation.vue';
+import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
 @Component({
-    components: { NavigationComponent },
+    components: { NavigationComponent, TextAreaBox },
 })
 export default class BikeQuest extends Vue {
     public text: string = '';
     public responses: string[] = [];
-    
+
     get isQuestComplete(): boolean {
         let completed = false;
         for (const res of this.responses) {
@@ -65,9 +61,8 @@ export default class BikeQuest extends Vue {
         return completed;
     }
 
-    public addResponse(): void {
-        this.responses.push(this.text);
-        this.text = '';
+    public addResponse(value: string): void {
+        this.responses.push(value);
     }
 
 }
