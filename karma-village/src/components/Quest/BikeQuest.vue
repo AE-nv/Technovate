@@ -29,9 +29,11 @@
             </v-card>
             <v-card>
                 <v-container>
-
-                    <!--TODO 1: create a text box -->
-                    <!--TODO 2: display the response -->
+                    <v-textarea auto-grow v-model="text" box rows="1" :label="label"></v-textarea>
+                    <v-card class="response-card">
+                        {{ text }}
+                    </v-card>
+                    
                     <!--TODO 3: add response to list + show the list of all responses -->
                     <!--TODO 4: implement function to determine if quest is complete -->
                     <!--TODO 5: add the textbox to a seperate component -->
@@ -50,7 +52,8 @@ import NavigationComponent from '@/components/Shared/Navigation.vue';
     components: { NavigationComponent },
 })
 export default class BikeQuest extends Vue {
-
+    private text: string = '';
+    
     get isQuestComplete(): boolean {
         return false;
     }
@@ -67,6 +70,11 @@ export default class BikeQuest extends Vue {
 
     .quest-image{
         width: 80%;
+    }
+
+    .response-card {
+        margin: 0px 0px 10px 0px;
+        padding: 10px;
     }
     
 </style>
