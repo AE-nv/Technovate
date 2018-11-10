@@ -38,22 +38,10 @@
                         <h3 class="quest-header">
                             Recommended Cars
                         </h3>       
-                       <div v-for="(car, index) in recommendations" :key="index">
-                            <v-card class="car-card">
-                                <div>
-                                    {{car.make_display}} - {{car.model_trim}}
-                                </div>
-                                <div>
-                                    <v-btn flat icon @click="unrecommend(car)">
-                                        <v-icon>thumb_down</v-icon>
-                                    </v-btn>
-                                </div>
-                            </v-card>
-                        </div>
+                       <car-list :cars="recommendations" :btnText="'thumb_down'" @carClicked="unrecommend"></car-list>
                     </v-container>
                 </v-card>
             </div>
-
             <div>
                 <v-card>
                     <v-container>
@@ -61,21 +49,7 @@
                             Search for Cars
                         </h3>
                         <text-area-box @text="searchForCars" :btnText="'Search Cars'" :label="'Car keywords go here'"></text-area-box>
-                        <div v-for="(car, index) in foundCars" :key="index">
-                            <v-card class="car-card">
-                                <div>
-                                    {{car.make_display}} - {{car.model_trim}}
-                                </div>
-                                <div>
-                                    <v-btn flat icon @click="recommend(car)">
-                                        <v-icon>thumb_up</v-icon>
-                                    </v-btn>
-                                </div>
-                            </v-card>
-                        </div>
-
-                        <!-- TODO 7: extract the list of found and recommended cars to a shared component -->
-                    
+                        <car-list :cars="foundCars" :btnText="'thumb_up'" @carClicked="recommend"></car-list>
                     </v-container>
                 </v-card>
             </div>
@@ -84,6 +58,7 @@
 </template>
 
 <script lang="ts">
+    import CarList from '@/components/Shared/CarList.vue';
     import NavigationComponent from '@/components/Shared/Navigation.vue';
     import { Component, Vue } from 'vue-property-decorator';
     import { Car, carSearchService } from '../../services/CarSearchService';
@@ -93,6 +68,7 @@
         components: {
             NavigationComponent,
             TextAreaBox,
+            CarList,
         },
     })
     export default class CarQuest extends Vue {
@@ -100,7 +76,7 @@
         public foundCars: Car[] = [];
 
         get isQuestComplete(): boolean {
-            return false;
+            return !!this.recommendations.find((car: Car) => car.make_display.toLowerCase().indexOf('bmw') > -1);
         }
 
         public searchForCars(value: string): void {
