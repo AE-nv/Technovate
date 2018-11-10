@@ -38,9 +38,18 @@
                         <h3 class="quest-header">
                             Recommended Cars
                         </h3>       
-
-                        <!-- TODO: Show list of recommended cars -->
-
+                       <div v-for="(car, index) in recommendations" :key="index">
+                            <v-card class="car-card">
+                                <div>
+                                    {{car.make_display}} - {{car.model_trim}}
+                                </div>
+                                <div>
+                                    <v-btn flat icon @click="unrecommend(car)">
+                                        <v-icon>thumb_down</v-icon>
+                                    </v-btn>
+                                </div>
+                            </v-card>
+                        </div>
                     </v-container>
                 </v-card>
             </div>
@@ -57,12 +66,14 @@
                                 <div>
                                     {{car.make_display}} - {{car.model_trim}}
                                 </div>
+                                <div>
+                                    <v-btn flat icon @click="recommend(car)">
+                                        <v-icon>thumb_up</v-icon>
+                                    </v-btn>
+                                </div>
                             </v-card>
                         </div>
 
-                        <!-- TODO 4: implement function to recommend car -->
-                        <!-- TODO 5: implement function to unrecommend car -->
-                        <!-- TODO 6: implement a message to show when the list of cars is empty -->
                         <!-- TODO 7: extract the list of found and recommended cars to a shared component -->
                     
                     </v-container>
@@ -85,6 +96,7 @@
         },
     })
     export default class CarQuest extends Vue {
+        public recommendations: Car[] = [];
         public foundCars: Car[] = [];
 
         get isQuestComplete(): boolean {
@@ -93,6 +105,16 @@
 
         public searchForCars(value: string): void {
             this.foundCars = carSearchService.search(value);
+        }
+
+        public recommend(value: Car): void {
+            this.recommendations.push(value);
+            this.foundCars.splice(this.foundCars.indexOf(value), 1);
+        }
+
+        public unrecommend(value: Car): void {
+            this.foundCars.push(value);
+            this.recommendations.splice(this.recommendations.indexOf(value), 1);
         }
 
     }
