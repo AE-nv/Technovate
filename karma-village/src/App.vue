@@ -1,9 +1,11 @@
 <template>
     <v-app>
         <header-component></header-component>
-        <v-content>
-            <router-view/>
-        </v-content>
+        <v-flex xs12 sm6 offset-sm3>
+            <v-content>
+                <router-view/>
+            </v-content>
+        </v-flex>
     </v-app>
 </template>
 

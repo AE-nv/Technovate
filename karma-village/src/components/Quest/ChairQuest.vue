@@ -127,7 +127,7 @@ export default class ChairQuest extends Vue {
         //     alert('An error occured while labeling the image through google vision api');
         // });
 
-        setTimeout(t => {  
+        setTimeout(t => {
             this.uploading = false;
             this.succesfulUpload = true;
             $('.checkmark').toggle();
@@ -143,7 +143,7 @@ export default class ChairQuest extends Vue {
         if (this.isKeywordPresent(keyWord)) {
             return 'green';
         }
-        if (this.files.length != 0) {
+        if (this.files.length !== 0) {
             return 'red';
         }
         return 'black';
