@@ -36,7 +36,6 @@
                     <v-textarea auto-grow v-model="text" box rows="1" label="Response"></v-textarea>
                     <v-btn @click="addResponse" :disabled="!text">Submit</v-btn>
                     
-                    <!--TODO 4: implement function to determine if quest is complete -->
                     <!--TODO 5: add the textbox to a seperate component -->
 
                 </v-container>
@@ -57,7 +56,13 @@ export default class BikeQuest extends Vue {
     public responses: string[] = [];
     
     get isQuestComplete(): boolean {
-        return false;
+        let completed = false;
+        for (const res of this.responses) {
+            if (res.indexOf('saddle') > -1 && res.indexOf('pedals') > -1 && res.indexOf('wheels') > -1) {
+                completed = true;
+            }
+        }
+        return completed;
     }
 
     public addResponse(): void {
