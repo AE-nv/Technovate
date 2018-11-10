@@ -37,14 +37,10 @@
                     <v-container>
                         <h3 class="quest-header">
                             Recommended Cars
-                        </h3>
-                        <div v-for="(car, index) in foundCars" :key="index">
-                            <v-card class="car-card">
-                                <div>
-                                    {{car.make_display}} - {{car.model_trim}}
-                                </div>
-                            </v-card>
-                        </div>                   
+                        </h3>       
+
+                        <!-- TODO: Show list of recommended cars -->
+
                     </v-container>
                 </v-card>
             </div>
@@ -56,7 +52,13 @@
                             Search for Cars
                         </h3>
                         <text-area-box @text="searchForCars" :btnText="'Search Cars'" :label="'Car keywords go here'"></text-area-box>
-
+                        <div v-for="(car, index) in foundCars" :key="index">
+                            <v-card class="car-card">
+                                <div>
+                                    {{car.make_display}} - {{car.model_trim}}
+                                </div>
+                            </v-card>
+                        </div>     
                         <!-- TODO 4: implement function to recommend car -->
                         <!-- TODO 5: implement function to unrecommend car -->
                         <!-- TODO 6: implement a message to show when the list of cars is empty -->

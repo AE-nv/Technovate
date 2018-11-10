@@ -4523,7 +4523,7 @@ class CarSearchService {
         // const url = `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&keyword=${keyword}&full_results=0&_=1541665947927`;
 
         // TODO Implement a function to get the results from the response that match the keyword.
-        const car = {
+        const car1 = {
             model_id: '71466',
             model_year: '2018',
             model_make_id: 'BMW',
@@ -4532,7 +4532,16 @@ class CarSearchService {
             make_display: 'BMW',
             make_country: 'Germany',
         } as Car;
-        return [ car ];
+        const car2 = {
+            model_id: '72424',
+            model_year: '2018',
+            model_make_id: 'BMW',
+            model_name: '3 Series',
+            model_trim: '328d 4dr Sedan (2.0L 4cyl Turbodiesel 8A)',
+            make_display: 'BMW',
+            make_country: 'Germany',
+        } as Car;
+        return [ car1, car2 ];
     }
 
 }
