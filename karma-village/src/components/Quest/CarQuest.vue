@@ -1,5 +1,5 @@
 <template>
-    <div class="full-height">
+    <div>
         <navigation-component>
             <v-btn flat @click="$router.go(-1)">
                 <v-icon>arrow_back</v-icon>
@@ -7,8 +7,7 @@
             <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
         </navigation-component>
 
-
-        <div class="full-height">
+        <div>
             <v-card>
                 <v-container>
                     <div>
@@ -36,9 +35,9 @@
             <div class="car-quest__recommended-cars">
                 <v-card>
                     <v-container>
-                        <h2 class="quest-header">
+                        <h3 class="quest-header">
                             Recommended Cars
-                        </h2>
+                        </h3>
 
                         <!-- TODO: Implement a message to show when the list of recommendations is empty -->
                         <car-list :cars="recommendations" :btnText="'thumb_down'" @carClicked="unrecommend"></car-list>
@@ -49,9 +48,9 @@
             <div class="car-quest__car-search">
                 <v-card>
                     <v-container>
-                        <h2 class="quest-header">
+                        <h3 class="quest-header">
                             Search for Cars
-                        </h2>
+                        </h3>
                         <div class="car-quest__text-box">
                             <!-- Include the text-area-box component from the components/Shared folder -->
                             <text-area-box @text="searchForCars"

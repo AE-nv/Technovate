@@ -28,10 +28,6 @@ export default class App extends Vue {
         text-align: center;
     }
 
-    .full-height{
-        height:100%;
-    }
-
     .v-card {
         margin: 10px;
     }
