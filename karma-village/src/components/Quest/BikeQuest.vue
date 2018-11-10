@@ -29,7 +29,7 @@
             </v-card>
             <v-card>
                 <v-container>
-                    <v-textarea auto-grow v-model="text" box rows="1" :label="label"></v-textarea>
+                    <v-textarea auto-grow v-model="text" box rows="1" label="Response"></v-textarea>
                     <v-card class="response-card">
                         {{ text }}
                     </v-card>
@@ -52,7 +52,7 @@ import NavigationComponent from '@/components/Shared/Navigation.vue';
     components: { NavigationComponent },
 })
 export default class BikeQuest extends Vue {
-    private text: string = '';
+    public text: string = '';
     
     get isQuestComplete(): boolean {
         return false;
