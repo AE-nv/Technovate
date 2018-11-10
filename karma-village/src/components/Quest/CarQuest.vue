@@ -32,7 +32,7 @@
                     </div>
                 </v-container>
             </v-card>
-            <div class="car-quest__recommended-cars">
+            <div>
                 <v-card>
                     <v-container>
                         <h3 class="quest-header">
@@ -45,20 +45,20 @@
                 </v-card>
             </div>
 
-            <div class="car-quest__car-search">
+            <div>
                 <v-card>
                     <v-container>
                         <h3 class="quest-header">
                             Search for Cars
                         </h3>
-                        <div class="car-quest__text-box">
+                        <div>
                             <!-- Include the text-area-box component from the components/Shared folder -->
                             <text-area-box @text="searchForCars"
                                            :btnText="'Search Cars'"
                                            :label="'Car keywords go here'"></text-area-box>
                         </div>
 
-                        <div class="car-quest__found-cars">
+                        <div>
                             <!-- TODO: Implement a message to show when the list of cars is empty -->
                             <!-- TODO: Extract this and the recommended cars to a shared component -->
                             <car-list :cars="foundCars" :btnText="'thumb_up'" @carClicked="recommend"></car-list>
@@ -114,12 +114,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .list-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
     ul {
         list-style: disc;
     }

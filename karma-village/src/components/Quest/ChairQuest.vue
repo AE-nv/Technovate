@@ -177,12 +177,6 @@ export default class ChairQuest extends Vue {
         width: 40%;
     }
 
-    .list-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;;
-    }
-
     ul {
         list-style: disc;
     }

@@ -6,10 +6,10 @@
 
         <div v-for="(car, index) in cars" :key="index">
             <v-card class="car-card">
-                <div class="car-quest__car-card-title">
+                <div>
                     {{car.make_display}} - {{car.model_trim}}
                 </div>
-                <div class="car-quest__car-card-btn">
+                <div>
                     <v-btn flat icon @click="carClicked(car)">
                         <v-icon>{{btnText}}</v-icon>
                     </v-btn>

@@ -75,7 +75,7 @@ export default class BikeQuest extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .quest-container {
         display: flex;
         justify-content: center;
