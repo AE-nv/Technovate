@@ -1,5 +1,5 @@
 <template>
-    <div class="full-height">
+    <div>
         <navigation-component>
             <v-btn flat @click="$router.go(-1)">
                 <v-icon>arrow_back</v-icon>
@@ -29,17 +29,13 @@
             </v-card>
             <v-card>
                 <v-container>
-                    <div>
-                        <!--TODO 1: show the last response -->
-                        <!--TODO 2: show the list of all responses -->
-                        <v-card class="response-card" v-for="(res, index) in responses" :key="index">
-                            {{res}}
-                        </v-card>
 
-                        <!--TODO 1: create a text box + add the response to the list -->
-                        <!--TODO 2: add the textbox to a seperate component -->
-                        <text-area-box @text="addResponse"></text-area-box>
-                    </div>
+                    <!--TODO 1: create a text box -->
+                    <!--TODO 2: display the response -->
+                    <!--TODO 3: add response to list + show the list of all responses -->
+                    <!--TODO 4: implement function to determine if quest is complete -->
+                    <!--TODO 5: add the textbox to a seperate component -->
+
                 </v-container>
             </v-card>
         </div>
@@ -49,29 +45,16 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import NavigationComponent from '@/components/Shared/Navigation.vue';
-import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
 @Component({
-    components: { NavigationComponent, TextAreaBox },
+    components: { NavigationComponent },
 })
 export default class BikeQuest extends Vue {
-    public responses: string[] = [];
-    public response: string = '';
 
-    // TODO: create a computed function which returns whether the quest is complete or not
     get isQuestComplete(): boolean {
-        let completed = false;
-        for (const res of this.responses) {
-            if (res.indexOf('saddle') > -1 && res.indexOf('pedals') > -1 && res.indexOf('wheels') > -1) {
-                completed = true;
-            }
-        }
-        return completed;
+        return false;
     }
 
-    public addResponse(value: string): void {
-        this.responses.push(value);
-    }
 }
 </script>
 
@@ -85,10 +68,5 @@ export default class BikeQuest extends Vue {
     .quest-image{
         width: 80%;
     }
-
-    .response-card {
-        margin: 0px 0px 10px 0px;
-        padding: 10px;
-    }
-
+    
 </style>

@@ -39,8 +39,8 @@
                             Recommended Cars
                         </h3>
 
-                        <!-- TODO: Implement a message to show when the list of recommendations is empty -->
-                        <car-list :cars="recommendations" :btnText="'thumb_down'" @carClicked="unrecommend"></car-list>
+                        <!-- TODO: Show list of recommended cars -->
+                   
                     </v-container>
                 </v-card>
             </div>
@@ -51,18 +51,15 @@
                         <h3 class="quest-header">
                             Search for Cars
                         </h3>
-                        <div>
-                            <!-- Include the text-area-box component from the components/Shared folder -->
-                            <text-area-box @text="searchForCars"
-                                           :btnText="'Search Cars'"
-                                           :label="'Car keywords go here'"></text-area-box>
-                        </div>
 
-                        <div>
-                            <!-- TODO: Implement a message to show when the list of cars is empty -->
-                            <!-- TODO: Extract this and the recommended cars to a shared component -->
-                            <car-list :cars="foundCars" :btnText="'thumb_up'" @carClicked="recommend"></car-list>
-                        </div>
+                        <!-- TODO 1: include the text-area-box component -->
+                        <!-- TODO 2: implement function that calls the CarSearchService -->
+                        <!-- TODO 3: show list of cars returned by the CarSearchService -->
+                        <!-- TODO 4: implement function to recommend car -->
+                        <!-- TODO 5: implement function to unrecommend car -->
+                        <!-- TODO 6: implement a message to show when the list of cars is empty -->
+                        <!-- TODO 7: extract the list of found and recommended cars to a shared component -->
+                    
                     </v-container>
                 </v-card>
             </div>
@@ -71,43 +68,21 @@
 </template>
 
 <script lang="ts">
-    import CarList from '@/components/Shared/CarList.vue';
     import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
     import { Component, Vue } from 'vue-property-decorator';
     import { Car, carSearchService } from '../../services/CarSearchService';
 
     @Component({
         components: {
             NavigationComponent,
-            TextAreaBox,
-            CarList,
         },
     })
     export default class CarQuest extends Vue {
         public recommendations: Car[] = [];
         public foundCars: Car[] = [];
 
-        // TODO: create a computed function which returns whether the quest is complete or not
         get isQuestComplete(): boolean {
-            return !!this.recommendations.find((car: Car) => car.make_display.toLowerCase().indexOf('bmw') > -1);
-        }
-
-        // TODO: Call the carSearchService in order to search for cars
-        public searchForCars(value: string): void {
-            this.foundCars = carSearchService.search(value);
-        }
-
-        // TODO: Implement the action to add a car to the recomendations list
-        public recommend(value: Car): void {
-            this.recommendations.push(value);
-            this.foundCars.splice(this.foundCars.indexOf(value), 1);
-        }
-
-        // TODO: Implement the action to add a car to the recomendations list
-        public unrecommend(value: Car): void {
-            this.foundCars.push(value);
-            this.recommendations.splice(this.recommendations.indexOf(value), 1);
+            return false;
         }
 
     }
