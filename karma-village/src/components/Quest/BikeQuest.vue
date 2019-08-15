@@ -1,30 +1,30 @@
 <template>
-    <div>
-        <navigation-component>
-            <v-btn flat @click="$router.go(-1)">
-                <v-icon>arrow_back</v-icon>
-            </v-btn>
-            <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
-        </navigation-component>
-
-        <div>
-            <v-card>
-                <v-container>
-                    <h2 class="quest-header">
-                        Have a bike for me?
-                    </h2>
-                    <div class="quest-container">
-                        <div class="quest-image">
-                            <v-img  :src="require('@/assets/bike.png')"></v-img>
+    <v-container>
+        <div class="full-height">
+            <navigation-component>
+                <v-btn flat @click="$router.go(-1)">
+                    <v-icon>arrow_back</v-icon>
+                </v-btn>
+                <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
+            </navigation-component>
+            <div>
+                <v-card>
+                    <v-container>
+                        <h2 class="quest-header">
+                            Have a bike for me?
+                        </h2>
+                        <div class="quest-container">
+                            <div class="quest-image">
+                                <v-img :src="require('@/assets/bike.png')"></v-img>
+                            </div>
                         </div>
-                    </div>
-                    <div class="quest-container">
-                        <p>
-                            I'm looking for a bike with two wheels, pedals and a saddle. 
-                            Preferably not too far from Leuven.
-                            Leave a comment if you have one available.
-                        </p>
-                    </div>
+                        <div class="quest-container">
+                            <p>
+                                I'm looking for a bike with two wheels, pedals and a saddle.
+                                Preferably not too far from Leuven.
+                                Leave a comment if you have one available.
+                            </p>
+                        </div>
                 </v-container>
             </v-card>
             <v-card>
@@ -37,11 +37,11 @@
                     <v-btn @click="addResponse" :disabled="!text">Submit</v-btn>
                     
                     <!--TODO 5: add the textbox to a seperate component -->
-
-                </v-container>
-            </v-card>
+                    </v-container>
+                </v-card>
+            </div>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script lang="ts">
@@ -54,7 +54,7 @@ import NavigationComponent from '@/components/Shared/Navigation.vue';
 export default class BikeQuest extends Vue {
     public text: string = '';
     public responses: string[] = [];
-    
+
     get isQuestComplete(): boolean {
         let completed = false;
         for (const res of this.responses) {
@@ -80,7 +80,7 @@ export default class BikeQuest extends Vue {
         align-items: center;
     }
 
-    .quest-image{
+    .quest-image {
         width: 80%;
     }
 
