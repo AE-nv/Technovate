@@ -78,8 +78,6 @@
         },
     })
     export default class CarQuest extends Vue {
-        public recommendations: Car[] = [];
-        public foundCars: Car[] = [];
 
         get isQuestComplete(): boolean {
             return false;
