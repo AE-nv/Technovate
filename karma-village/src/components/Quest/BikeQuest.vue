@@ -3,10 +3,10 @@
 
         <div class="full-height">
             <navigation-component>
-                <v-btn flat @click="$router.go(-1)">
+                <v-btn text @click="$router.go(-1)">
                     <v-icon>arrow_back</v-icon>
                 </v-btn>
-                <v-btn flat @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
+                <v-btn text @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
             </navigation-component>
 
             <div>
