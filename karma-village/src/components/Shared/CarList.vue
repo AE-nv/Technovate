@@ -10,7 +10,7 @@
                     {{car.make_display}} - {{car.model_trim}}
                 </div>
                 <div>
-                    <v-btn flat icon @click="carClicked(car)">
+                    <v-btn text icon @click="carClicked(car)">
                         <v-icon>{{btnText}}</v-icon>
                     </v-btn>
                 </div>
