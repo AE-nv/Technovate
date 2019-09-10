@@ -1,9 +1,9 @@
 <template>
-    <v-toolbar app full-width>
+    <v-app-bar app>
         <v-toolbar-items>
             <slot></slot>
         </v-toolbar-items>
-    </v-toolbar>
+    </v-app-bar>
 </template>
 
 <script lang="ts">
