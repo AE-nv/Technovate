@@ -2,11 +2,13 @@
     <div>
         <header-component></header-component>
 
-        <v-card v-for="(quest,index) in quests" :key="index">
-            <v-container>
-                <quest-tile v-bind:quest="quest"></quest-tile>
-            </v-container>
-        </v-card>
+        <v-list>
+            <v-card v-for="(quest,index) in quests" :key="index">
+                <v-container>
+                    <quest-tile v-bind:quest="quest"></quest-tile>
+                </v-container>
+            </v-card>
+        </v-list>
     </div>
 </template>
 
