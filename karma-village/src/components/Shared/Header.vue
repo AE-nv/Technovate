@@ -1,11 +1,11 @@
 <template>
-    <v-toolbar app class="header__toolbar">
+    <v-app-bar app class="header__toolbar">
         <v-toolbar-title class="header__title headline font-weight-ligth has-text-weight-semibold is-uppercase">
             <span>Technovate</span>
             <span>  -  </span>
             <span class="font-weight-light">Quest App</span>
         </v-toolbar-title>
-    </v-toolbar>
+    </v-app-bar>
 </template>
 
 <script lang="ts">
