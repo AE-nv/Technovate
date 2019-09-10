@@ -1,15 +1,15 @@
 <template>
-    <v-toolbar app>
-        <v-toolbar-title class="headline font-weight-ligth has-text-weight-semibold is-uppercase">
+    <v-app-bar app class="header__toolbar">
+        <v-toolbar-title class="header__title headline font-weight-ligth has-text-weight-semibold is-uppercase">
             <span>Technovate</span>
             <span>  -  </span>
             <span class="font-weight-light">Quest App</span>
         </v-toolbar-title>
-    </v-toolbar>
+    </v-app-bar>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
+    import { Component, Vue } from 'vue-property-decorator';
 
     @Component({})
     export default class HeaderComponent extends Vue {
@@ -17,8 +17,14 @@
 </script>
 
 <style lang="scss">
-    #app > div > nav > div{
-        background-color: #3F51B5;
+    $bg-color: #3F51B5;
+
+    .header__toolbar.theme--light.v-toolbar {
+        background-color: $bg-color;
+    }
+
+    .header__title {
+        background-color: $bg-color;
         color: #f5f5f5!important;
         width: 100%;
         padding: 4px 4px;
