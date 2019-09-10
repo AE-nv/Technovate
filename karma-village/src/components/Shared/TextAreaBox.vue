@@ -26,10 +26,8 @@
 </script>
 
 <style lang="scss">
-
     .text-area-box {
         display: flex;
         flex-flow: column;
     }
-
 </style>
