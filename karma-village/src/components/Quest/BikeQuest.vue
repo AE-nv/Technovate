@@ -29,7 +29,7 @@
             </v-card>
             <v-card>
                 <v-container>
-                    <v-textarea auto-grow v-model="text" box rows="1" label="Response"></v-textarea>
+                    <v-textarea auto-grow v-model="text" filled rows="1" label="Response"></v-textarea>
                     <v-card class="response-card">
                         {{ text }}
                     </v-card>
