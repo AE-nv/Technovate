@@ -33,7 +33,7 @@
                         {{ res }}
                     </v-card>
 
-                    <v-textarea auto-grow v-model="text" box rows="1" label="Response"></v-textarea>
+                    <v-textarea auto-grow v-model="text" filled rows="1" label="Response"></v-textarea>
                     <v-btn @click="addResponse" :disabled="!text">Submit</v-btn>
                     
                     <!--TODO 5: add the textbox to a seperate component -->

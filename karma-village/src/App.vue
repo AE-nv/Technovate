@@ -20,4 +20,8 @@
         margin: 10px;
     }
 
+    ul {
+       list-style-type: disc;
+       margin-left: 40px;
+    }
 </style>

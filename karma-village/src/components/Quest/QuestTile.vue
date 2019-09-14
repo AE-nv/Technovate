@@ -12,7 +12,7 @@
                     height="200"
             ></v-img>
         </v-list-item-avatar>
-        <v-list-item-content>
+        <v-list-item-content class="item-content">
             <v-list-item-title>{{ quest.title }}</v-list-item-title>
             <v-list-item-subtitle class="text--primary">{{ quest.description }}</v-list-item-subtitle>
         </v-list-item-content>
@@ -35,6 +35,8 @@
         }
     }
 </script>
-<style>
-
+<style lang="scss">
+    .item-content {
+        padding-left: 10px;
+    }
 </style>
