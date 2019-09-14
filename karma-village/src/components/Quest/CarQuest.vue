@@ -44,7 +44,7 @@
                                     {{car.make_display}} - {{car.model_trim}}
                                 </div>
                                 <div>
-                                    <v-btn flat icon @click="unrecommend(car)">
+                                    <v-btn text icon @click="unrecommend(car)">
                                         <v-icon>thumb_down</v-icon>
                                     </v-btn>
                                 </div>
@@ -67,7 +67,7 @@
                                     {{car.make_display}} - {{car.model_trim}}
                                 </div>
                                 <div>
-                                    <v-btn flat icon @click="recommend(car)">
+                                    <v-btn text icon @click="recommend(car)">
                                         <v-icon>thumb_up</v-icon>
                                     </v-btn>
                                 </div>
