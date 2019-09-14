@@ -35,7 +35,7 @@
         }
     }
 </script>
-<style>
+<style lang="scss">
     .item-content {
         padding-left: 10px;
     }
