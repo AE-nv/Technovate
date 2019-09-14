@@ -7,7 +7,7 @@ To start developing vue web applications, you should install [node.js](https://n
 
 ## Installation Vue cli
 ```
-npm install -g @vue-cli
+npm install -g @vue/cli
 ```
 
 ## Create Vue application
