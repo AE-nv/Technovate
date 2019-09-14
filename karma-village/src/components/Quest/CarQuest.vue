@@ -98,10 +98,6 @@
 </script>
 
 <style lang="scss" scoped>
-    ul {
-        list-style: disc;
-    }
-
     .v-card {
         margin-bottom: 10px;
     }
