@@ -1,6 +1,6 @@
 <template>
     <div class="text-area-box">
-        <v-textarea auto-grow v-model="text" box rows="1" :label="label"></v-textarea>
+        <v-textarea auto-grow v-model="text" filled rows="1" :label="label"></v-textarea>
         <v-btn @click="addResponse" :disabled="!text">{{ btnText }}</v-btn>
     </div>
 </template>
