@@ -108,34 +108,33 @@ export default class ChairQuest extends Vue {
         const file1 = file[0];
 
         // TODO: do a google VISION API request and parse all the keywords (labelannotations -> .description) using the GoogleApiService (placed in the services package)
-        // googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
-        //     this.keyWords = response.responses[0].labelAnnotations
-        //         .map((labelAnnotation) => labelAnnotation.description);
-
-        //     const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
-        //     const dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
-        //     this.keyWords.push(dominantColor);
-
-        //     this.uploading = false;
-        //     if (this.isQuestComplete) {
-        //         this.succesfulUpload = true;
-        //         $('.checkmark').toggle();
-        //     }
-        // }).catch(reason => {
-        //     this.uploading = false;
-        //     this.succesfulUpload = false;
-        //     console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
-        //     alert('An error occured while labeling the image through google vision api');
-        // });
-
-        setTimeout(t => {
+         googleApiService.detectLabels(file1).then((response: GoogleVisionResponse) => {
+             this.keyWords = response.responses[0].labelAnnotations
+                 .map((labelAnnotation) => labelAnnotation.description);
+            const dominantColor1 = response.responses[0].imagePropertiesAnnotation.dominantColors.colors.sort((color) => color.score)[0].color;
+            const dominantColor = (dominantColor1.red > dominantColor1.blue && dominantColor1.red > dominantColor1.green) ? 'red' : 'doesntmatter';
+            this.keyWords.push(dominantColor);
+            response.responses[0].labelAnnotations.forEach(annotation => this.keyWords.push(annotation.description.toLowerCase()));
             this.uploading = false;
-            this.succesfulUpload = true;
-            $('.checkmark').toggle();
-            this.keyWords.push('red');
-            this.keyWords.push('plastic');
-            this.keyWords.push('chair');
-        }, 1000);
+             if (this.isQuestComplete) {
+                 this.succesfulUpload = true;
+                 $('.checkmark').toggle();
+             }
+         }).catch(reason => {
+             this.uploading = false;
+             this.succesfulUpload = false;
+             console.error('There was an error labeling the image through google api: ' + reason.toLocaleString());
+             alert('An error occured while labeling the image through google vision api');
+         });
+
+        // setTimeout(t => {
+        //     this.uploading = false;
+        //     this.succesfulUpload = true;
+        //     $('.checkmark').toggle();
+        //     this.keyWords.push('red');
+        //     this.keyWords.push('plastic');
+        //     this.keyWords.push('chair');
+        // }, 1000);
     }
 
     private getColorKeywordPresent(keyWord: string): string {

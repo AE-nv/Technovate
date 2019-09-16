@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 
 class GoogleApiService {
 
-    private static GOOGLE_VISION_API_KEY = 'AIzaSyDlXHnneZE56Jm-PSqxlTO-zp7_1leXOyw';
+    private static GOOGLE_VISION_API_KEY = 'AIzaSyAducUvC1fNtWb00PL7kuwDV1bZrWpCGb8';
 
     private static googleVisionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${GoogleApiService.GOOGLE_VISION_API_KEY}`;
 
@@ -30,7 +30,7 @@ class GoogleApiService {
            The api key is needed to authenticate the call at the google vision api end.
            The axios library is a possible library to use to perform a POST request
          */
-        return axios.post<GoogleVisionResponse>(this.googleVisionUrl, dataOptions)
+        return axios.post<GoogleVisionResponse>(GoogleApiService.googleVisionUrl, dataOptions)
             .then((response: AxiosResponse<GoogleVisionResponse>) => {
             return response.data;
         });
