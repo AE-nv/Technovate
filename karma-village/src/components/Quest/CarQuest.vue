@@ -72,29 +72,29 @@
 </template>
 
 <script lang="ts">
-    import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import { Component, Vue } from 'vue-property-decorator';
-    import { Car, carSearchService } from '../../services/CarSearchService';
-    import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import { Car, carSearchService } from '../../services/CarSearchService';
+import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
-    @Component({
-        components: {
-            NavigationComponent,
-            TextAreaBox,
-        },
-    })
-    export default class CarQuest extends Vue {
-        public foundCars: Car[] = [];
+@Component({
+    components: {
+        NavigationComponent,
+        TextAreaBox,
+    },
+})
+export default class CarQuest extends Vue {
+    private foundCars: Car[] = [];
 
-        get isQuestComplete(): boolean {
-            return false;
-        }
-
-        public searchForCars(value: string): void {
-            this.foundCars = carSearchService.search(value);
-        }
-
+    private get isQuestComplete(): boolean {
+        return false;
     }
+
+    private searchForCars(value: string): void {
+        this.foundCars = carSearchService.search(value);
+    }
+
+}
 </script>
 
 <style lang="scss" scoped>
