@@ -1,9 +1,11 @@
 <template>
-    <v-flex xs12 sm6 offset-sm3>
-        <v-content>
-            <router-view/>
-        </v-content>
-    </v-flex>
+    <v-app>
+        <v-flex xs12 sm6 offset-sm3>
+            <v-main fluid>
+                <router-view/>
+            </v-main>
+        </v-flex>
+    </v-app>
 </template>
 
 <script lang="ts">
