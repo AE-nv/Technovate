@@ -56,7 +56,7 @@ export default class BikeQuest extends Vue {
     public text: string = '';
     public responses: string[] = [];
 
-    get isQuestComplete(): boolean {
+    private get isQuestComplete(): boolean {
         return false;
     }
 
