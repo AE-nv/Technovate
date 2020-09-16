@@ -54,7 +54,7 @@ import NavigationComponent from '@/components/Shared/Navigation.vue';
 export default class BikeQuest extends Vue {
     public text: string = '';
 
-    get isQuestComplete(): boolean {
+    private get isQuestComplete(): boolean {
         return false;
     }
 
