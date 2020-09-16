@@ -68,22 +68,22 @@
 </template>
 
 <script lang="ts">
-    import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import { Component, Vue } from 'vue-property-decorator';
-    import { Car, carSearchService } from '../../services/CarSearchService';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import { Car, carSearchService } from '../../services/CarSearchService';
 
-    @Component({
-        components: {
-            NavigationComponent,
-        },
-    })
-    export default class CarQuest extends Vue {
+@Component({
+    components: {
+        NavigationComponent,
+    },
+})
+export default class CarQuest extends Vue {
 
-        get isQuestComplete(): boolean {
-            return false;
-        }
-
+    private get isQuestComplete(): boolean {
+        return false;
     }
+
+}
 </script>
 
 <style lang="scss" scoped>
