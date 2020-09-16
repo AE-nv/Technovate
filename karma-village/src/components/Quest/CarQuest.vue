@@ -58,42 +58,42 @@
 </template>
 
 <script lang="ts">
-    import CarList from '@/components/Shared/CarList.vue';
-    import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import { Component, Vue } from 'vue-property-decorator';
-    import { Car, carSearchService } from '../../services/CarSearchService';
-    import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
+import CarList from '@/components/Shared/CarList.vue';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import { Car, carSearchService } from '../../services/CarSearchService';
+import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
-    @Component({
-        components: {
-            NavigationComponent,
-            TextAreaBox,
-            CarList,
-        },
-    })
-    export default class CarQuest extends Vue {
-        public recommendations: Car[] = [];
-        public foundCars: Car[] = [];
+@Component({
+    components: {
+        NavigationComponent,
+        TextAreaBox,
+        CarList,
+    },
+})
+export default class CarQuest extends Vue {
+    private recommendations: Car[] = [];
+    private foundCars: Car[] = [];
 
-        get isQuestComplete(): boolean {
-            return !!this.recommendations.find((car: Car) => car.make_display.toLowerCase().indexOf('bmw') > -1);
-        }
-
-        public searchForCars(value: string): void {
-            this.foundCars = carSearchService.search(value);
-        }
-
-        public recommend(value: Car): void {
-            this.recommendations.push(value);
-            this.foundCars.splice(this.foundCars.indexOf(value), 1);
-        }
-
-        public unrecommend(value: Car): void {
-            this.foundCars.push(value);
-            this.recommendations.splice(this.recommendations.indexOf(value), 1);
-        }
-
+    private get isQuestComplete(): boolean {
+        return !!this.recommendations.find((car: Car) => car.make_display.toLowerCase().indexOf('bmw') > -1);
     }
+
+    private searchForCars(value: string): void {
+        this.foundCars = carSearchService.search(value);
+    }
+
+    private recommend(value: Car): void {
+        this.recommendations.push(value);
+        this.foundCars.splice(this.foundCars.indexOf(value), 1);
+    }
+
+    private unrecommend(value: Car): void {
+        this.foundCars.push(value);
+        this.recommendations.splice(this.recommendations.indexOf(value), 1);
+    }
+
+}
 </script>
 
 <style lang="scss" scoped>

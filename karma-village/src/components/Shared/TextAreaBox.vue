@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
     @Component({})
     export default class TextAreaBox extends Vue {
@@ -18,9 +18,11 @@
 
         private text: string = '';
 
+        @Emit('text')
         private addResponse() {
-            this.$emit('text', this.text);
+            const output = this.text;
             this.text = '';
+            return output;
         }
     }
 </script>

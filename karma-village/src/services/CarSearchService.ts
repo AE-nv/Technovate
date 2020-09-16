@@ -4523,8 +4523,8 @@ class CarSearchService {
         // const url = `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&keyword=${keyword}&full_results=0&_=1541665947927`;
 
         const filter = this.carApiResponse.Trims.filter((car: Car) =>
-                car.model_trim.toLowerCase().indexOf(keyword.toLowerCase()) > -1 ||
-                car.make_display.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
+            car.model_trim.toLowerCase().indexOf(keyword.toLowerCase()) > -1 ||
+            car.make_display.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
         return filter;
     }
 
