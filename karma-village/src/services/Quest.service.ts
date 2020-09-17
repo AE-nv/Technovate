@@ -31,7 +31,7 @@ class QuestService {
     }
 
     public getQuestById(id: number): IQuest {
-        return this.quests.find((x) => x.id === id);
+        return this.quests.filter((x) => x.id === id)[0];
     }
 }
 

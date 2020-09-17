@@ -2,17 +2,13 @@
     <div>
         <header-component></header-component>
 
-        <v-container fluid>
-            <v-row justify="center">
-                <v-list>
-                    <v-card v-for="(quest,index) in quests" :key="index">
-                        <v-container>
-                            <quest-tile v-bind:quest="quest"></quest-tile>
-                        </v-container>
-                    </v-card>
-                </v-list>
-            </v-row>
-        </v-container>
+        <v-list>
+            <v-card v-for="(quest,index) in quests" :key="index">
+                <v-container>
+                    <quest-tile v-bind:quest="quest"></quest-tile>
+                </v-container>
+            </v-card>
+        </v-list>
     </div>
 </template>
 
