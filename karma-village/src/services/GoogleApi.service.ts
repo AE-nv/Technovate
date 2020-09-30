@@ -2,20 +2,21 @@ import axios, {AxiosResponse} from 'axios';
 
 class GoogleApiService {
 
-    private static GOOGLE_VISION_API_KEY = 'AIzaSyAducUvC1fNtWb00PL7kuwDV1bZrWpCGb8';
+    private static GOOGLE_VISION_API_KEY = 'AIzaSyDHH809m0tnQZ4NQrjE3pI2JsMSN3TEmoE';
 
     private static googleVisionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${GoogleApiService.GOOGLE_VISION_API_KEY}`;
 
     private static doGoogleVisionCall(base64EncodedFile: string): Promise<GoogleVisionResponse> {
+        console.log('lala', base64EncodedFile);
         const dataOptions = {
             requests: [
                 {
                     features: [
                         {
-                            type: 'LABEL_DETECTION',
+                            type: "LABEL_DETECTION",
                         },
                         {
-                            type: 'IMAGE_PROPERTIES',
+                            type: "IMAGE_PROPERTIES",
                         },
                     ],
                     image: {
@@ -30,6 +31,7 @@ class GoogleApiService {
            The api key is needed to authenticate the call at the google vision api end.
            The axios library is a possible library to use to perform a POST request
          */
+        console.log(dataOptions.requests[0].image);
         return axios.post<GoogleVisionResponse>(GoogleApiService.googleVisionUrl, dataOptions)
             .then((response: AxiosResponse<GoogleVisionResponse>) => {
             return response.data;
@@ -47,6 +49,7 @@ class GoogleApiService {
                 const dataUrl = reader.result;
                 let base64;
                 if (typeof dataUrl === 'string') {
+                    console.log('Hmmm, ', dataUrl.split(',')[1]);
                     base64 = dataUrl.split(',')[1];
                 }
                 resolve(callback(base64));
