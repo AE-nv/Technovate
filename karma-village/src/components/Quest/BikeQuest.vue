@@ -1,6 +1,5 @@
 <template>
     <v-container>
-
         <div class="full-height">
             <navigation-component>
                 <v-btn text @click="$router.go(-1)">
@@ -8,7 +7,6 @@
                 </v-btn>
                 <v-btn text @click="$router.go(-1)" :disabled="!isQuestComplete">Complete Quest</v-btn>
             </navigation-component>
-
             <div>
                 <v-card>
                     <v-container>
@@ -31,17 +29,10 @@
                 </v-card>
                 <v-card>
                     <v-container>
-                        <div>
-                            <!--TODO 1: show the last response -->
-                            <!--TODO 2: show the list of all responses -->
-                            <v-card class="response-card" v-for="(res, index) in responses" :key="index">
-                                {{res}}
-                            </v-card>
-
-                            <!--TODO 1: create a text box + add the response to the list -->
-                            <!--TODO 2: add the textbox to a seperate component -->
-                            <text-area-box @text="addResponse"></text-area-box>
-                        </div>
+                        <v-card  v-for="(res, index) in responses" :key="index" class="response-card">
+                            {{ res }}
+                        </v-card>
+                        <text-area-box @text="addResponse"></text-area-box>
                     </v-container>
                 </v-card>
             </div>
@@ -50,32 +41,27 @@
 </template>
 
 <script lang="ts">
-    import NavigationComponent from '@/components/Shared/Navigation.vue';
-    import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
-    import { Component, Vue } from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
+import NavigationComponent from '@/components/Shared/Navigation.vue';
+import TextAreaBox from '@/components/Shared/TextAreaBox.vue';
 
-    @Component({
-        components: {NavigationComponent, TextAreaBox},
-    })
-    export default class BikeQuest extends Vue {
-        public responses: string[] = [];
-        public response: string = '';
+@Component({
+    components: { NavigationComponent, TextAreaBox },
+})
+export default class BikeQuest extends Vue {
+    private text: string = '';
+    private responses: string[] = [];
 
-        // TODO: create a computed function which returns whether the quest is complete or not
-        get isQuestComplete(): boolean {
-            let completed = false;
-            for (const res of this.responses) {
-                if (res.indexOf('saddle') > -1 && res.indexOf('pedals') > -1 && res.indexOf('wheels') > -1) {
-                    completed = true;
-                }
-            }
-            return completed;
-        }
-
-        public addResponse(value: string): void {
-            this.responses.push(value);
-        }
+    private get isQuestComplete(): boolean {
+        return this.responses
+            .some(res => res.indexOf('saddle') > -1 && res.indexOf('pedals') > -1 && res.indexOf('wheels') > -1);
     }
+
+    private addResponse(value: string): void {
+        this.responses.push(value);
+    }
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -93,5 +79,5 @@
         margin: 0px 0px 10px 0px;
         padding: 10px;
     }
-
+    
 </style>

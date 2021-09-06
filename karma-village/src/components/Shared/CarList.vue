@@ -32,7 +32,6 @@
         public cars: Car[];
 
         private carClicked(value: Car) {
-            // TODO: emit the response
             this.$emit('carClicked', value);
         }
     }

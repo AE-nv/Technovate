@@ -13,10 +13,10 @@ class GoogleApiService {
                 {
                     features: [
                         {
-                            type: "LABEL_DETECTION",
+                            type: 'LABEL_DETECTION',
                         },
                         {
-                            type: "IMAGE_PROPERTIES",
+                            type: 'IMAGE_PROPERTIES',
                         },
                     ],
                     image: {

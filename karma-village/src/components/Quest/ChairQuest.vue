@@ -67,9 +67,7 @@ import { googleApiService, GoogleVisionResponse } from '@/services/GoogleApi.ser
 import JQuery from 'jquery';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { IQuest } from '../../models/IQuest';
-
 const $ = JQuery;
-
 @Component({
     components: {DropZone, NavigationComponent},
 })
@@ -78,11 +76,9 @@ export default class ChairQuest extends Vue {
     get getPlastic(): string {
         return this.getColorKeywordPresent('plastic');
     }
-
     get isColorRed() {
         return this.getColorKeywordPresent('red');
     }
-
     get isChair() {
         return this.getColorKeywordPresent('chair');
     }
