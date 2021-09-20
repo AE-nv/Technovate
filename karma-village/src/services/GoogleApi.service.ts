@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 
 class GoogleApiService {
 
-    private static GOOGLE_VISION_API_KEY = 'AIzaSyDHH809m0tnQZ4NQrjE3pI2JsMSN3TEmoE';
+    private static GOOGLE_VISION_API_KEY = 'AIzaSyDxWourvev6Fpk2i_ynwLSDziEEqNDbfl8';
 
     private static googleVisionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${GoogleApiService.GOOGLE_VISION_API_KEY}`;
 
