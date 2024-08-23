@@ -1,42 +1,21 @@
-<template>
-    <v-list-item
-            :key="quest.title"
-            :to="`/quest/${quest.link}`"
-    >
+<script setup lang="ts">
+import { computed } from 'vue'
 
-        <v-list-item-avatar>
-            <v-img
-                    :src="getImage()"
-                    class="my-3"
-                    contain
-                    height="200"
-            ></v-img>
-        </v-list-item-avatar>
-        <v-list-item-content class="item-content">
-            <v-list-item-title>{{ quest.title }}</v-list-item-title>
-            <v-list-item-subtitle class="text--primary">{{ quest.description }}</v-list-item-subtitle>
-        </v-list-item-content>
+import type { IQuest } from '@/models/IQuest'
 
+const props = defineProps<{
+  quest: IQuest
+}>()
 
-    </v-list-item>
-</template>
-
-<script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-
-    import {IQuest} from '@/models/IQuest';
-
-    @Component({})
-    export default class QuestTileComponent extends Vue {
-        @Prop() public quest!: IQuest;
-
-        public getImage() {
-            return require('@/assets/' + this.quest.image);
-        }
-    }
+const imageUrl = computed(() => new URL('/src/assets/' + props.quest.image, import.meta.url).href)
 </script>
-<style lang="scss">
-    .item-content {
-        padding-left: 10px;
-    }
-</style>
+
+<template>
+  <v-card :title="quest.title" :subtitle="quest.description" :href="`/quest/${quest.link}`" class="mb-2">
+    <template #prepend>
+      <v-avatar>
+        <v-img :src="imageUrl" contain height="200"></v-img>
+      </v-avatar>
+    </template>
+  </v-card>
+</template>
