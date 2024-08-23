@@ -4,17 +4,16 @@ import { useRouter } from 'vue-router';
 
 import bikeImage from '@/assets/bike.png'
 import NavigationComponent from '@/components/shared/Navigation.vue';
+import TextAreaBox from '@/components/shared/TextAreaBox.vue';
 
 const router = useRouter();
 
 const isQuestComplete = computed(() => ['saddle', 'pedals', 'wheels'].every(item => responses.value.includes(item)));
 
-const text = ref('');
 const responses = ref<string[]>([])
 
-const addResponse = () => {
-  responses.value.push(text.value);
-  text.value = '';
+const addResponse = (value: string) => {
+  responses.value.push(value);
 }
 </script>
 
@@ -39,11 +38,7 @@ const addResponse = () => {
       <v-card class="mb-2">
         <v-container>
           <v-card v-for="(response, index) in responses" :key="index" class="mb-2 pa-2">{{ response }}</v-card>
-          <v-textarea auto-grow v-model="text" filled rows="1" label="Response"></v-textarea>
-          <v-btn @click="addResponse" :disabled="!text">Submit</v-btn>
-
-          <!--TODO 5: add the textbox to a seperate component -->
-
+          <TextAreaBox @submit="addResponse" />
         </v-container>
       </v-card>
     </v-container>
