@@ -7,7 +7,7 @@ import NavigationComponent from '@/components/shared/Navigation.vue';
 
 const router = useRouter();
 
-const isQuestComplete = computed(() => false);
+const isQuestComplete = computed(() => ['saddle', 'pedals', 'wheels'].every(item => responses.value.includes(item)));
 
 const text = ref('');
 const responses = ref<string[]>([])
