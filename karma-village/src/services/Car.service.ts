@@ -4550,18 +4550,11 @@ class CarService {
   };
 
   public search(keyword: string): ICar[] {
-    // TODO Implement a function to get the results from the response that match the keyword.
-
-    const car = {
-      model_id: "71466",
-      model_year: "2018",
-      model_make_id: "BMW",
-      model_name: "2 Series",
-      model_trim: "228i 2dr Convertible (2.0L 4cyl Turbo 8A)",
-      make_display: "BMW",
-      make_country: "Germany",
-    };
-    return [car];
+    return this.carApiResponse.Trims.filter(
+      (car) =>
+        car.model_trim.toLowerCase().includes(keyword.toLowerCase()) ||
+        car.make_display.toLowerCase().includes(keyword.toLowerCase())
+    );
   }
 }
 
