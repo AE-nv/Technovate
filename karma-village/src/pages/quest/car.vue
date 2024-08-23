@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router'
 
 import NavigationComponent from '@/components/shared/Navigation.vue'
+import TextAreaBox from '@/components/shared/TextAreaBox.vue'
+import { ICar } from '@/models/ICar';
+import { carService } from '@/services/Car.service';
 
 const router = useRouter();
 
 const isQuestComplete = computed(() => false)
+
+const foundCars = ref<ICar[]>([])
+
+const searchForCars = (value: string) => {
+  foundCars.value = carService.search(value);
+}
 </script>
 
 <template>
@@ -48,9 +57,11 @@ const isQuestComplete = computed(() => false)
       <v-container>
         <h3>Search for Cars</h3>
 
-        <!-- TODO 1: include the text-area-box component -->
-        <!-- TODO 2: implement function that calls the CarSearchService -->
-        <!-- TODO 3: show list of cars returned by the CarSearchService -->
+        <TextAreaBox label="Car keywords go here" btn-text="Search Cars" @submit="searchForCars" />
+        <v-card v-for="(car, index) in foundCars" :key="index" class="mb-2 pa-2">
+          {{ car.make_display }} - {{ car.model_trim }}
+        </v-card>
+
         <!-- TODO 4: implement function to recommend car -->
         <!-- TODO 5: implement function to unrecommend car -->
         <!-- TODO 6: implement a message to show when the list of cars is empty -->
@@ -60,3 +71,5 @@ const isQuestComplete = computed(() => false)
     </v-card>
   </v-container>
 </template>
+
+<style lang="scss"></style>
