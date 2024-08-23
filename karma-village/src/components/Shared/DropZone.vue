@@ -1,100 +1,79 @@
-<template>
-    <div class="dropzone"
-         v-on:click="openFileSelection"
-         v-on:dragover="onDragOver"
-         v-on:dragleave="onDragLeave"
-         v-on:drop="onDrop"
-         v-bind:class="{hightlight: hightlight, disabled: !enabled}"
-    >
-        <div>Add files</div>
-        <input ref="fileInput"
-               class="file-input"
-               type="file"
-               multiple
-               v-on:change="onFileChanged"/>
-    </div>
-</template>
+<script setup lang="ts">
+import { ref } from 'vue';
 
-<script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+const props = defineProps<{
+  disabled?: boolean;
+}>()
 
-    @Component
-    export default class DropZone extends Vue {
-        @Prop({default: true})
-        private enabled!: boolean;
-        private hightlight = false;
+const emit = defineEmits<{
+  filesAdded: [files: File[]]
+}>();
 
-        public openFileSelection(): void {
-            if (!this.enabled) {
-                return;
-            }
-            (this.$refs.fileInput as HTMLElement).click();
-        }
+const fileInput = ref<HTMLInputElement>();
+const highlight = ref(false);
 
-        public onDragOver(event: DragEvent): void {
-            if (!this.enabled) {
-                return;
-            }
-            event.preventDefault();
-            this.hightlight = true;
-        }
+const handleFileChanged = (event: Event) => {
+  const files = Array.from((event.target as HTMLInputElement).files || []);
+  emit('filesAdded', files);
+}
 
-        public onDragLeave(event: DragEvent): void {
-            this.hightlight = false;
-        }
+const openFileSelection = () => {
+  if (props.disabled) return;
+  fileInput.value?.click();
+}
 
-        public onDrop(event: DragEvent): void {
-            if (!this.enabled) {
-                return;
-            }
-            event.preventDefault();
-            if (event && event.dataTransfer && event.dataTransfer.files) {
-                const files = event.dataTransfer.files;
-                const result: File[] = [];
-                for (let i = 0; i < files.length; i++) {
-                    result.push(files.item(i) as File);
-                }
-                this.$emit('filesAdded', result);
-                this.hightlight = false;
-            }
-        }
+const handleDragOver = (event: DragEvent) => {
+  if (props.disabled) return;
+  event.preventDefault();
+  highlight.value = true;
+}
 
-        public onFileChanged(event: any) {
-            const files: FileList = event.target.files;
-            const result: File[] = [];
-            for (let i = 0; i < files.length; i++) {
-                result.push(files.item(i) as File);
-            }
-            this.$emit('filesAdded', result);
-        }
+const handleDragLeave = (event: DragEvent) => {
+  event.preventDefault();
+  highlight.value = false;
+}
 
-
-    }
+const handleDrop = (event: DragEvent) => {
+  if (props.disabled) return;
+  event.preventDefault();
+  if (event && event.dataTransfer && event.dataTransfer.files) {
+    const files = Array.from(event.dataTransfer.files);
+    emit('filesAdded', files);
+    highlight.value = false;
+  }
+}
 </script>
 
-<style scoped>
-    .dropzone {
-        position: relative;
-        border: 3px dashed #42b983;
-        color: #42b983;
-        font: bold 24px/200px arial;
-        height: 100%;
-        width: 100%;
-        box-sizing: border-box;
-        text-align: center;
-        cursor: pointer;
-    }
+<template>
+  <div class="dropzone" :class="{ highlight: highlight, disabled: disabled }" @click="openFileSelection"
+    @dragover="handleDragOver" @dragleave="handleDragLeave" @drop="handleDrop">
+    <span>Add file</span>
+    <input ref="fileInput" class="file-input" type="file" multiple @change="handleFileChanged" />
+  </div>
+</template>
 
-    .hightlight {
-        background-color: #b3dbc9;
-    }
+<style lang="scss">
+.dropzone {
+  border: 4px dashed #42b983;
+  color: #42b983;
+  font: bold 24px arial;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 
-    .disabled {
-        border: 3px dashed grey;
-        color: grey;
-    }
+.file-input {
+  display: none;
+}
 
-    .file-input {
-        display: none;
-    }
+.highlight {
+  background-color: #b3dbc9;
+}
+
+.disabled {
+  border-color: gray;
+  color: gray;
+}
 </style>

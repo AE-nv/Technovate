@@ -1,35 +1,27 @@
-<template>
-    <div class="text-area-box">
-        <v-textarea auto-grow v-model="text" filled rows="1" :label="label"></v-textarea>
-        <v-btn @click="addResponse" :disabled="!text">{{ btnText }}</v-btn>
-    </div>
-</template>
+<script setup lang="ts">
+import { ref } from 'vue';
 
-<script lang="ts">
-    import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+withDefaults(defineProps<{
+  label?: string;
+  btnText?: string;
+}>(), {
+  label: 'Response',
+  btnText: 'Submit'
+})
 
-    @Component({})
-    export default class TextAreaBox extends Vue {
-        @Prop({default: 'Submit'})
-        public btnText: string;
+const emit = defineEmits<{
+  submit: [value: string]
+}>()
 
-        @Prop({default: 'Response'})
-        public label: string;
+const text = ref('');
 
-        private text: string = '';
-
-        @Emit('text')
-        private addResponse() {
-            const output = this.text;
-            this.text = '';
-            return output;
-        }
-    }
+const handleClick = () => {
+  emit('submit', text.value);
+  text.value = '';
+}
 </script>
 
-<style lang="scss">
-    .text-area-box {
-        display: flex;
-        flex-flow: column;
-    }
-</style>
+<template>
+  <v-textarea auto-grow v-model="text" filled rows="1" :label="label"></v-textarea>
+  <v-btn :disabled="!text" class="mb-2 mr-4" @click="handleClick">{{ btnText }}</v-btn>
+</template>
