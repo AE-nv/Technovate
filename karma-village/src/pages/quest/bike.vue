@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import bikeImage from '@/assets/bike.png'
@@ -7,7 +7,9 @@ import NavigationComponent from '@/components/shared/Navigation.vue';
 
 const router = useRouter();
 
-const isQuestComplete = computed(() => false)
+const isQuestComplete = computed(() => false);
+
+const text = ref('');
 </script>
 
 <template>
@@ -30,9 +32,9 @@ const isQuestComplete = computed(() => false)
       </v-card>
       <v-card class="mb-2">
         <v-container>
+          <v-textarea auto-grow v-model="text" filled rows="1" label="Response"></v-textarea>
+          <v-card class="mb-2 pa-2">{{ text }}</v-card>
 
-          <!--TODO 1: create a text box -->
-          <!--TODO 2: display the response -->
           <!--TODO 3: add response to list + show the list of all responses -->
           <!--TODO 4: implement function to determine if quest is complete -->
           <!--TODO 5: add the textbox to a seperate component -->
