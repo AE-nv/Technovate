@@ -1,45 +1,26 @@
-<template>
-    <div>
-        <header-component></header-component>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
 
-        <v-container fluid>
-            <v-row justify="center">
-                <v-list>
-                    <v-card v-for="(quest,index) in quests" :key="index">
-                        <v-container>
-                            <quest-tile v-bind:quest="quest"></quest-tile>
-                        </v-container>
-                    </v-card>
-                </v-list>
-            </v-row>
-        </v-container>
-    </div>
-</template>
+import type { IQuest } from '@/models/IQuest'
+import { questService } from '@/services/Quest.service'
 
-<script lang="ts">
-    import HeaderComponent from '@/components/Shared/Header.vue';
-    import { IQuest } from '@/models/IQuest';
-    import { questService } from '@/services/Quest.service';
-    import { Component, Vue } from 'vue-property-decorator';
-    import QuestTile from './QuestTile.vue';
+import HeaderComponent from '../shared/Header.vue';
+import QuestTile from './QuestTile.vue';
 
-    @Component({
-        components: {
-            QuestTile,
-            HeaderComponent,
-        },
-    })
-    export default class QuestList extends Vue {
-        private quests: IQuest[] = [];
+const quests = ref<IQuest[]>([]);
 
-        private created() {
-            this.quests = questService.getAllQuests();
-        }
-    }
+onMounted(() => {
+  quests.value = questService.getAllQuests();
+})
 </script>
 
-<style lang="scss">
-    .quest-header {
-        text-align: center;
-    }
-</style>
+<template>
+  <HeaderComponent />
+  <v-container fluid>
+    <v-row justify="center">
+      <v-col>
+        <QuestTile v-for="quest in quests" :key="quest.id" :quest="quest" />
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
