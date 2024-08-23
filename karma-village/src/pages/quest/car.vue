@@ -2,30 +2,31 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router'
 
-import NavigationComponent from '@/components/shared/Navigation.vue'
-import TextAreaBox from '@/components/shared/TextAreaBox.vue'
+import CarList from '@/components/quest/CarList.vue';
+import NavigationComponent from '@/components/shared/Navigation.vue';
+import TextAreaBox from '@/components/shared/TextAreaBox.vue';
 import { ICar } from '@/models/ICar';
 import { carService } from '@/services/Car.service';
 
 const router = useRouter();
 
-const isQuestComplete = computed(() => recommendations.value.map(car => car.make_display.toLowerCase()).includes('bmw'))
+const isQuestComplete = computed(() => recommendations.value?.map(car => car.make_display.toLowerCase()).includes('bmw'))
 
 const foundCars = ref<ICar[]>()
-const recommendations = ref<ICar[]>([])
+const recommendations = ref<ICar[]>()
 
 const searchForCars = (value: string) => {
   foundCars.value = carService.search(value);
 }
 
 const recommend = (value: ICar) => {
-  recommendations.value.push(value);
+  recommendations.value = [...(recommendations.value || []), value];
   foundCars.value?.splice(foundCars.value.indexOf(value), 1);
 }
 
 const unrecommend = (value: ICar) => {
-  foundCars.value?.push(value);
-  recommendations.value.splice(recommendations.value.indexOf(value), 1);
+  foundCars.value = [...(foundCars.value || []), value];
+  recommendations.value?.splice(recommendations.value?.indexOf(value), 1);
 }
 </script>
 
@@ -59,11 +60,7 @@ const unrecommend = (value: ICar) => {
       <v-container>
         <h3>Recommended Cars</h3>
 
-        <v-card v-for="(car, index) in recommendations" :key="index" class="mb-2 pa-2 card">
-          <span>{{ car.make_display }} - {{ car.model_trim }}</span>
-          <v-btn variant="text" icon="mdi-thumb-down" @click="unrecommend(car)"></v-btn>
-        </v-card>
-
+        <CarList :cars="recommendations" icon="mdi-thumb-down" @car-clicked="unrecommend" />
       </v-container>
     </v-card>
 
@@ -72,15 +69,7 @@ const unrecommend = (value: ICar) => {
         <h3>Search for Cars</h3>
 
         <TextAreaBox label="Car keywords go here" btn-text="Search Cars" @submit="searchForCars" />
-        <v-card v-for="(car, index) in foundCars" :key="index" class="mb-2 pa-2 card">
-          <span>{{ car.make_display }} - {{ car.model_trim }}</span>
-          <v-btn variant="text" icon="mdi-thumb-up" @click="recommend(car)"></v-btn>
-        </v-card>
-        <span v-if="foundCars !== undefined && !foundCars.length" class="ml-4">No cars found matching this
-          keyword.</span>
-
-        <!-- TODO 7: extract the list of found and recommended cars to a shared component -->
-
+        <CarList :cars="foundCars" icon="mdi-thumb-up" @car-clicked="recommend" />
       </v-container>
     </v-card>
   </v-container>

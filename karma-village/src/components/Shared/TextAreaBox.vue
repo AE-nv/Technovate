@@ -23,5 +23,5 @@ const handleClick = () => {
 
 <template>
   <v-textarea auto-grow v-model="text" filled rows="1" :label="label"></v-textarea>
-  <v-btn :disabled="!text" class="mb-2" @click="handleClick">{{ btnText }}</v-btn>
+  <v-btn :disabled="!text" class="mb-2 mr-4" @click="handleClick">{{ btnText }}</v-btn>
 </template>
