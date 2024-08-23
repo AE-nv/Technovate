@@ -9,12 +9,23 @@ import { carService } from '@/services/Car.service';
 
 const router = useRouter();
 
-const isQuestComplete = computed(() => false)
+const isQuestComplete = computed(() => recommendations.value.map(car => car.make_display.toLowerCase()).includes('bmw'))
 
-const foundCars = ref<ICar[]>([])
+const foundCars = ref<ICar[]>()
+const recommendations = ref<ICar[]>([])
 
 const searchForCars = (value: string) => {
   foundCars.value = carService.search(value);
+}
+
+const recommend = (value: ICar) => {
+  recommendations.value.push(value);
+  foundCars.value?.splice(foundCars.value.indexOf(value), 1);
+}
+
+const unrecommend = (value: ICar) => {
+  foundCars.value?.push(value);
+  recommendations.value.splice(recommendations.value.indexOf(value), 1);
 }
 </script>
 
@@ -48,7 +59,10 @@ const searchForCars = (value: string) => {
       <v-container>
         <h3>Recommended Cars</h3>
 
-        <!-- TODO: Show list of recommended cars -->
+        <v-card v-for="(car, index) in recommendations" :key="index" class="mb-2 pa-2 card">
+          <span>{{ car.make_display }} - {{ car.model_trim }}</span>
+          <v-btn variant="text" icon="mdi-thumb-down" @click="unrecommend(car)"></v-btn>
+        </v-card>
 
       </v-container>
     </v-card>
@@ -58,13 +72,13 @@ const searchForCars = (value: string) => {
         <h3>Search for Cars</h3>
 
         <TextAreaBox label="Car keywords go here" btn-text="Search Cars" @submit="searchForCars" />
-        <v-card v-for="(car, index) in foundCars" :key="index" class="mb-2 pa-2">
-          {{ car.make_display }} - {{ car.model_trim }}
+        <v-card v-for="(car, index) in foundCars" :key="index" class="mb-2 pa-2 card">
+          <span>{{ car.make_display }} - {{ car.model_trim }}</span>
+          <v-btn variant="text" icon="mdi-thumb-up" @click="recommend(car)"></v-btn>
         </v-card>
+        <span v-if="foundCars !== undefined && !foundCars.length" class="ml-4">No cars found matching this
+          keyword.</span>
 
-        <!-- TODO 4: implement function to recommend car -->
-        <!-- TODO 5: implement function to unrecommend car -->
-        <!-- TODO 6: implement a message to show when the list of cars is empty -->
         <!-- TODO 7: extract the list of found and recommended cars to a shared component -->
 
       </v-container>
@@ -72,4 +86,10 @@ const searchForCars = (value: string) => {
   </v-container>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
