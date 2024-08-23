@@ -1,95 +1,67 @@
-import axios, {AxiosResponse} from 'axios';
+import { GoogleVisionResponse } from "@/models/IGoogleVision";
 
 class GoogleApiService {
+  private static GOOGLE_VISION_API_KEY =
+    "AIzaSyDLMr5jUYv4tNc-RMRQAHZh6a68PUbLJjs";
 
-    private static GOOGLE_VISION_API_KEY = 'AIzaSyDlXHnneZE56Jm-PSqxlTO-zp7_1leXOyw';
+  private static googleVisionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${GoogleApiService.GOOGLE_VISION_API_KEY}`;
 
-    private static googleVisionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${GoogleApiService.GOOGLE_VISION_API_KEY}`;
+  private static async callGoogleVision(
+    base64EncodedFile: string
+  ): Promise<GoogleVisionResponse> {
+    const dataOptions = {
+      requests: [
+        {
+          features: [
+            {
+              type: "LABEL_DETECTION",
+            },
+            {
+              type: "IMAGE_PROPERTIES",
+            },
+          ],
+          image: {
+            content: base64EncodedFile,
+          },
+        },
+      ],
+    };
 
-    private static doGoogleVisionCall(base64EncodedFile: string): Promise<GoogleVisionResponse> {
-        const dataOptions = {
-            requests: [
-                {
-                    features: [
-                        {
-                            type: 'LABEL_DETECTION',
-                        },
-                        {
-                            type: 'IMAGE_PROPERTIES',
-                        },
-                    ],
-                    image: {
-                        content: base64EncodedFile,
-                    },
-                },
-            ],
-        };
+    const response = await fetch(GoogleApiService.googleVisionUrl, {
+      method: "POST",
+      body: JSON.stringify(dataOptions),
+      headers: { "Content-Type": "application/json" },
+    });
 
-        /*
-           TODO: Do a call to the googleVisionUrl (make use of the dataOptions, which is the data contract Google expects in the POST request)
-           The api key is needed to authenticate the call at the google vision api end.
-           The axios library is a possible library to use to perform a POST request
-         */
-        return axios.post<GoogleVisionResponse>(this.googleVisionUrl, dataOptions)
-            .then((response: AxiosResponse<GoogleVisionResponse>) => {
-            return response.data;
-        });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    public detectLabels(file: File): Promise<GoogleVisionResponse> {
-        return this.blobToBase64(file, GoogleApiService.doGoogleVisionCall);
-    }
+    return response.json();
+  }
 
-    private blobToBase64(blob, callback): Promise<GoogleVisionResponse> {
-        return new Promise<GoogleVisionResponse>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                const dataUrl = reader.result;
-                let base64;
-                if (typeof dataUrl === 'string') {
-                    base64 = dataUrl.split(',')[1];
-                }
-                resolve(callback(base64));
-            };
-            reader.readAsDataURL(blob);
-        });
-    }
+  public async detectLabels(file: File): Promise<GoogleVisionResponse> {
+    const base64EncodedFile = await this.blobToBase64(file);
+    return await GoogleApiService.callGoogleVision(base64EncodedFile);
+  }
+
+  private async blobToBase64(blob: File): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.result) {
+          resolve(
+            reader.result
+              .toString()
+              .replace(/^data:image\/(png|jpg|jpeg);base64,/, "")
+          );
+        }
+      };
+
+      reader.readAsDataURL(blob);
+    });
+  }
 }
 
 export const googleApiService = new GoogleApiService();
-
-export interface LabelAnnotation {
-    mid: string;
-    description: string;
-    score: number;
-    topicality: number;
-}
-
-export interface Response {
-    labelAnnotations: LabelAnnotation[];
-    imagePropertiesAnnotation: ImagePropertiesAnnotation;
-}
-
-export interface GoogleVisionResponse {
-    responses: Response[];
-}
-
-export interface Color2 {
-    red: number;
-    green: number;
-    blue: number;
-}
-
-export interface Color {
-    color: Color2;
-    score: number;
-    pixelFraction: number;
-}
-
-export interface DominantColors {
-    colors: Color[];
-}
-
-export interface ImagePropertiesAnnotation {
-    dominantColors: DominantColors;
-}
