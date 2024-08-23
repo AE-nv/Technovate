@@ -1,13 +1,43 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import chairImage from '@/assets/Red_Chair.png'
+import chairImage from '@/assets/Red_Chair.png';
+import DropZone from '@/components/shared/DropZone.vue';
 import NavigationComponent from '@/components/shared/Navigation.vue';
+import { googleApiService } from '@/services/GoogleApi.service';
 
 const router = useRouter();
 
-const isQuestComplete = computed(() => false);
+const files = ref<File[]>([])
+const keywords = ref<string[]>([])
+const isUploading = ref(false);
+
+const isQuestComplete = computed(() => isChair.value && isRed.value && isPlastic.value);
+const isChair = computed(() => keywords.value.includes('chair'));
+const isRed = computed(() => keywords.value.includes('red'));
+const isPlastic = computed(() => keywords.value.includes('plastic'));
+
+const handleFilesAdded = async (newFiles: File[]) => {
+  isUploading.value = true;
+  files.value = newFiles;
+
+  const file1 = files.value[0];
+
+  try {
+    const result = await googleApiService.detectLabels(file1);
+    const response = result.responses[0];
+    keywords.value = response.labelAnnotations.map(labelAnnotation => labelAnnotation.description.toLowerCase());
+
+    const color = response.imagePropertiesAnnotation.dominantColors.colors.sort(color => color.score)[0].color;
+    const isRedDominant = color.red > color.blue && color.red > color.green;
+    if (isRedDominant) keywords.value.push('red');
+  } catch (error) {
+    alert('There was an error labeling the image through google api: ' + (error as Error).toLocaleString());
+  } finally {
+    isUploading.value = false;
+  }
+}
 </script>
 
 <template>
@@ -24,9 +54,9 @@ const isQuestComplete = computed(() => false);
           <div>
             <p>My ideal chair has these characteristics:</p>
             <ul class="pl-6">
-              <li>Chair</li>
-              <li>Color: red</li>
-              <li>Made out of plastic</li>
+              <li :class="{ invalid: keywords.length && !isChair }">Chair</li>
+              <li :class="{ invalid: keywords.length && !isRed }">Color: red</li>
+              <li :class="{ invalid: keywords.length && !isPlastic }">Made out of plastic</li>
             </ul>
           </div>
           <div class="quest-image">
@@ -39,11 +69,11 @@ const isQuestComplete = computed(() => false);
       <v-container>
         <h3>Add a picture of the chair you can offer</h3>
 
-        <!--TODO 1: add the drop-zone element -->
-        <!--TODO 2: show list of files that are uploaded -->
-        <!--TODO 3: call function whenever a file is added that sends file to google api service -->
-        <!--TODO 4: determine if result of google api contains required characteristics to complete quest -->
-        <!--TODO 5: provide user feedback in the list of characteristics -->
+        <DropZone :disabled="isUploading" @files-added="handleFilesAdded" />
+        <ul v-if="files.length && !isUploading" class="pl-6 mt-2">
+          <li v-for="file in files" :key="file.lastModified">{{ file.name }}</li>
+        </ul>
+        <v-skeleton-loader v-if="isUploading" type="sentences"></v-skeleton-loader>
       </v-container>
     </v-card>
   </v-container>
@@ -56,5 +86,9 @@ const isQuestComplete = computed(() => false);
 
 .quest-image {
   width: 40%;
+}
+
+.invalid {
+  color: red;
 }
 </style>
